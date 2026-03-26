@@ -54,7 +54,7 @@
       to   { transform: translate(35px,25px) scale(1.07); }
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -87,19 +87,16 @@
       50%      { box-shadow: 0 0 0 8px rgba(0,198,255,0); }
     }
 
-    /* ── SECTIONS ── */
     section {
       position: relative; z-index: 1;
       width: 100%; display: flex; flex-direction: column;
       align-items: center;
     }
 
-    /* ── HERO ── */
+    /* HERO */
     #hero {
-      min-height: 100vh;
-      justify-content: center;
-      padding: 100px 20px 80px;
-      text-align: center;
+      min-height: 100vh; justify-content: center;
+      padding: 100px 20px 80px; text-align: center;
     }
 
     .pill {
@@ -156,7 +153,7 @@
       opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
     }
 
-    /* ── COUNTDOWN ── */
+    /* COUNTDOWN */
     .countdown {
       display: flex; align-items: flex-start;
       gap: clamp(6px, 2vw, 20px); justify-content: center;
@@ -173,14 +170,10 @@
       font-weight: 700; line-height: 1;
       background: linear-gradient(135deg, #fff 30%, var(--accent));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      border: 1px solid var(--border); border-radius: 12px;
       background-color: rgba(0,198,255,0.05);
-      width: 100%; text-align: center;
-      display: flex; align-items: center; justify-content: center;
-      min-width: unset;
-      height: clamp(60px, 10vw, 90px);
-      padding: 0 8px;
+      width: 100%; display: flex; align-items: center; justify-content: center;
+      min-width: unset; height: clamp(60px, 10vw, 90px); padding: 0 8px;
       position: relative; overflow: visible;
     }
     .count-val::before {
@@ -199,7 +192,6 @@
       opacity: 0.4; animation: blink 1.6s ease-in-out infinite; flex-shrink: 0;
     }
 
-    /* ── SCROLL INDICATOR ── */
     .scroll-hint {
       display: flex; flex-direction: column; align-items: center; gap: 8px;
       margin-top: 60px; opacity: 0; animation: fadeUp 0.9s 1.4s forwards;
@@ -209,20 +201,15 @@
     .scroll-hint svg { animation: bounce 2s ease-in-out infinite; }
     @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(6px)} }
 
-    /* ── DIVIDER ── */
     .divider {
-      width: 100%; max-width: 900px;
-      height: 1px;
+      width: 100%; max-width: 900px; height: 1px;
       background: linear-gradient(90deg, transparent, var(--border), transparent);
       margin: 0 auto;
     }
 
-    /* ── WAITLIST SECTION ── */
-    #waitlist {
-      padding: 100px 20px;
-      max-width: 640px; margin: 0 auto;
-      text-align: center;
-    }
+    /* WAITLIST */
+    #waitlist { padding: 100px 20px; max-width: 640px; margin: 0 auto; text-align: center; }
+
     .section-tag {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
@@ -240,7 +227,7 @@
       line-height: 1.7; margin-bottom: 36px; max-width: 480px;
     }
 
-    .form-row {
+    .form-inline {
       display: flex; gap: 10px;
       background: rgba(3,12,24,0.85); border: 1px solid var(--border);
       border-radius: 14px; padding: 6px 6px 6px 20px;
@@ -248,16 +235,14 @@
       backdrop-filter: blur(12px);
       transition: border-color 0.3s, box-shadow 0.3s;
     }
-    .form-row:focus-within {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--glow);
-    }
-    .form-row input {
+    .form-inline:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
+    .form-inline input {
       background: none; border: none; outline: none;
       color: var(--text); font-size: 0.9rem;
       flex: 1; min-width: 0; font-family: 'Inter', sans-serif;
     }
-    .form-row input::placeholder { color: var(--muted); }
+    .form-inline input::placeholder { color: var(--muted); }
+
     .btn {
       background: linear-gradient(135deg, var(--accent2), var(--accent));
       border: none; border-radius: 10px; color: #fff;
@@ -266,29 +251,24 @@
       transition: opacity 0.2s, transform 0.2s; white-space: nowrap; flex-shrink: 0;
     }
     .btn:hover { opacity: 0.85; transform: scale(0.97); }
-    .form-note { font-size: 0.7rem; color: var(--muted); margin-top: 12px; }
-    .success-msg {
-      display: none; font-size: 0.85rem; color: var(--accent3);
-      margin-top: 12px;
-    }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    /* ── CONTACT SECTION ── */
-    #contact {
-      padding: 100px 20px 120px;
-      max-width: 640px; margin: 0 auto;
-      text-align: center; width: 100%;
-    }
+    .form-note { font-size: 0.7rem; color: var(--muted); margin-top: 12px; }
+    .success-msg { display: none; font-size: 0.85rem; color: var(--accent3); margin-top: 12px; }
+
+    /* CONTACT */
+    #contact { padding: 100px 20px 120px; max-width: 640px; margin: 0 auto; text-align: center; width: 100%; }
+
     .contact-card {
-      background: rgba(3,12,24,0.7);
-      border: 1px solid var(--border);
+      background: rgba(3,12,24,0.7); border: 1px solid var(--border);
       border-radius: 20px; padding: clamp(28px, 5vw, 48px);
-      backdrop-filter: blur(16px);
-      position: relative; overflow: hidden;
+      backdrop-filter: blur(16px); position: relative; overflow: hidden; width: 100%;
     }
     .contact-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
     }
+
     .contact-form { display: flex; flex-direction: column; gap: 14px; text-align: left; }
 
     .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -298,23 +278,21 @@
     }
     .input-group input,
     .input-group textarea {
-      background: rgba(0,198,255,0.04);
-      border: 1px solid var(--border);
+      background: rgba(0,198,255,0.04); border: 1px solid var(--border);
       border-radius: 10px; padding: 12px 16px;
       color: var(--text); font-size: 0.9rem;
       font-family: 'Inter', sans-serif; outline: none;
       transition: border-color 0.3s, box-shadow 0.3s; width: 100%;
     }
     .input-group input:focus,
-    .input-group textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--glow);
-    }
+    .input-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
     .input-group input::placeholder,
     .input-group textarea::placeholder { color: var(--muted); }
     .input-group textarea { resize: vertical; min-height: 120px; }
+    .input-group input.error,
+    .input-group textarea.error { border-color: #f87171 !important; }
 
-    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
     .btn-full {
       background: linear-gradient(135deg, var(--accent2), var(--accent));
@@ -324,13 +302,17 @@
       transition: opacity 0.2s, transform 0.2s; width: 100%;
       margin-top: 4px; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .btn-full:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-full:hover:not(:disabled) { opacity: 0.85; transform: translateY(-1px); }
+    .btn-full:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
     .contact-success {
-      display: none; font-size: 0.85rem; color: var(--accent3);
-      margin-top: 14px; text-align: center;
+      display: none; font-size: 0.9rem; color: var(--accent3);
+      margin-top: 20px; text-align: center; padding: 20px;
+      border: 1px solid rgba(0,255,163,0.2); border-radius: 12px;
+      background: rgba(0,255,163,0.05);
     }
 
-    /* ── MARQUEE ── */
+    /* MARQUEE */
     .marquee-wrap {
       position: fixed; bottom: 0; left: 0; right: 0;
       overflow: hidden; padding: 10px 0;
@@ -342,29 +324,24 @@
       animation: marquee 28s linear infinite; white-space: nowrap;
     }
     .marquee-track span {
-      font-size: clamp(0.58rem, 1.2vw, 0.68rem);
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--muted); flex-shrink: 0;
+      font-size: clamp(0.58rem, 1.2vw, 0.68rem); letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted); flex-shrink: 0;
     }
     .marquee-track span em { color: var(--accent); font-style: normal; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── TABLET ── */
+    /* TABLET */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
-      .form-row-2 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
     }
 
-    /* ── MOBILE ── */
+    /* MOBILE */
     @media (max-width: 480px) {
       nav { padding: 14px 16px; }
       .badge { display: none; }
@@ -375,17 +352,17 @@
 
       .countdown { gap: 4px; margin-bottom: 32px; }
       .countdown-item { width: 22vw; max-width: 72px; }
-      .count-val { height: clamp(52px, 14vw, 72px); font-size: clamp(1.3rem, 6vw, 1.8rem); padding: 0 4px; border-radius: 10px; }
-      .sep { font-size: clamp(1.2rem, 5vw, 1.8rem); margin-bottom: 18px; }
+      .count-val { height: clamp(52px,14vw,72px); font-size: clamp(1.3rem,6vw,1.8rem); padding: 0 4px; border-radius: 10px; }
+      .sep { font-size: clamp(1.2rem,5vw,1.8rem); margin-bottom: 18px; }
       .count-label { font-size: 0.5rem; letter-spacing: 0.08em; }
 
-      .form-row { flex-direction: column; padding: 12px; gap: 10px; border-radius: 14px; }
-      .form-row input { font-size: 0.9rem; padding: 4px 0; }
-      .btn { width: 100%; padding: 13px; font-size: 0.9rem; border-radius: 10px; text-align: center; }
+      .form-inline { flex-direction: column; padding: 12px; gap: 10px; border-radius: 14px; }
+      .form-inline input { font-size: 0.9rem; padding: 4px 0; }
+      .btn { width: 100%; padding: 13px; font-size: 0.9rem; border-radius: 10px; }
 
       #waitlist, #contact { padding: 60px 14px 60px; }
-      .contact-card { padding: 24px 18px; }
-      .form-row-2 { grid-template-columns: 1fr; }
+      .contact-card { padding: 24px 16px; }
+      .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -402,10 +379,10 @@
 </nav>
 
 <!-- iframes cachés FormSubmit -->
-<iframe name="fs-waitlist" style="display:none;"></iframe>
-<iframe name="fs-contact"  style="display:none;"></iframe>
+<iframe name="fs-waitlist" id="fs-waitlist" style="display:none;"></iframe>
+<iframe name="fs-contact"  id="fs-contact"  style="display:none;"></iframe>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section id="hero">
   <div class="pill"><span class="dot"></span>Quelque chose se prépare</div>
 
@@ -414,10 +391,7 @@
     <span class="line-2" data-text="se rapproche.">se rapproche.</span>
   </h1>
 
-  <p class="sub">
-    Une nouvelle expérience prend forme.<br/>
-    Rare. Ambitieuse. Imminente.
-  </p>
+  <p class="sub">Une nouvelle expérience prend forme.<br/>Rare. Ambitieuse. Imminente.</p>
 
   <div class="countdown">
     <div class="countdown-item"><div class="count-val" id="cd-days">00</div><div class="count-label">Jours</div></div>
@@ -439,15 +413,14 @@
 
 <div class="divider"></div>
 
-<!-- ── WAITLIST ── -->
+<!-- WAITLIST -->
 <section id="waitlist">
   <div class="section-tag">● Être notifié</div>
   <h2 class="section-title">Soyez les premiers.</h2>
-  <p class="section-sub">
-    Inscrivez-vous et recevez un accès en avant-première dès l'ouverture de SahelMahel.
-  </p>
+  <p class="section-sub">Inscrivez-vous et recevez un accès en avant-première dès l'ouverture de SahelMahel.</p>
 
   <form
+    id="form-waitlist"
     action="https://formsubmit.co/tannafriq@gmail.com"
     method="POST"
     target="fs-waitlist"
@@ -458,72 +431,76 @@
     <input type="hidden" name="_template" value="table">
     <input type="text"   name="_gotcha"   style="display:none">
 
-    <div class="form-row" id="waitlist-row">
+    <div class="form-inline" id="waitlist-row">
       <input type="email" name="email" id="waitlist-email" placeholder="Votre adresse e-mail…" required/>
-      <button type="submit" class="btn">Être notifié</button>
+      <button type="submit" class="btn" id="waitlist-btn">Être notifié</button>
     </div>
   </form>
-  <p class="form-note" id="waitlist-note">Aucun spam. Juste l'essentiel, au bon moment.</p>
+  <p class="form-note"  id="waitlist-note">Aucun spam. Juste l'essentiel, au bon moment.</p>
   <p class="success-msg" id="waitlist-success">✓ Vous serez parmi les premiers informés.</p>
 </section>
 
 <div class="divider"></div>
 
-<!-- ── CONTACT ── -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="section-tag">● Nous contacter</div>
   <h2 class="section-title" style="margin-bottom:14px;">Une question ?</h2>
-  <p class="section-sub">
-    Partenariat, presse ou curiosité — on lit tout.
-  </p>
+  <p class="section-sub">Partenariat, presse ou curiosité — on lit tout.</p>
 
-  <div class="contact-card" style="width:100%;">
+  <div class="contact-card">
     <form
+      id="form-contact"
       class="contact-form"
       action="https://formsubmit.co/tannafriq@gmail.com"
       method="POST"
       target="fs-contact"
       onsubmit="handleContact(event)"
+      novalidate
     >
       <input type="hidden" name="_subject"  value="📩 Message — SahelMahel Contact">
       <input type="hidden" name="_captcha"  value="false">
       <input type="hidden" name="_template" value="table">
       <input type="text"   name="_gotcha"   style="display:none">
 
-      <div class="form-row-2">
+      <div class="grid-2">
         <div class="input-group">
-          <label>Prénom</label>
-          <input type="text" name="prenom" placeholder="Yasmine" required/>
+          <label for="c-prenom">Prénom *</label>
+          <input type="text" id="c-prenom" name="prenom" placeholder="Yasmine" required/>
         </div>
         <div class="input-group">
-          <label>Nom</label>
-          <input type="text" name="nom" placeholder="Benali" required/>
+          <label for="c-nom">Nom *</label>
+          <input type="text" id="c-nom" name="nom" placeholder="Benali" required/>
         </div>
       </div>
 
       <div class="input-group">
-        <label>Email</label>
-        <input type="email" name="email" placeholder="vous@exemple.com" required/>
+        <label for="c-email">Email *</label>
+        <input type="email" id="c-email" name="email" placeholder="vous@exemple.com" required/>
       </div>
 
       <div class="input-group">
-        <label>Objet</label>
-        <input type="text" name="objet" placeholder="Partenariat, question, autre…" required/>
+        <label for="c-objet">Objet *</label>
+        <input type="text" id="c-objet" name="objet" placeholder="Partenariat, question, autre…" required/>
       </div>
 
       <div class="input-group">
-        <label>Message</label>
-        <textarea name="message" placeholder="Décrivez votre demande…" required></textarea>
+        <label for="c-message">Message *</label>
+        <textarea id="c-message" name="message" placeholder="Décrivez votre demande…" required></textarea>
       </div>
 
       <button type="submit" class="btn-full" id="contact-btn">
-        <span>Envoyer le message</span>
+        <span id="contact-btn-label">Envoyer le message</span>
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
         </svg>
       </button>
     </form>
-    <p class="contact-success" id="contact-success">✓ Message envoyé. On vous répond très vite.</p>
+
+    <div class="contact-success" id="contact-success">
+      ✓ Message envoyé avec succès.<br/>
+      <span style="font-size:0.8rem; color: var(--muted); margin-top:6px; display:block;">On vous répond très vite.</span>
+    </div>
   </div>
 </section>
 
@@ -550,7 +527,7 @@
 </div>
 
 <script>
-  /* ── PARTICLES ── */
+  /* PARTICLES */
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
   let W, H, particles = [];
@@ -576,7 +553,6 @@
       ctx.fillStyle=`rgba(${this.color},${this.a})`; ctx.fill();
     }
   }
-
   for (let i=0;i<110;i++) particles.push(new Particle());
 
   function drawLines() {
@@ -594,7 +570,6 @@
       }
     }
   }
-
   function animate() {
     ctx.clearRect(0,0,W,H);
     particles.forEach(p=>{p.update();p.draw();});
@@ -602,7 +577,7 @@
   }
   animate();
 
-  /* ── COUNTDOWN → 1er septembre 2026 ── */
+  /* COUNTDOWN */
   const target = new Date('2026-09-01T00:00:00');
   function updateCountdown() {
     const diff = target - new Date();
@@ -614,14 +589,17 @@
   }
   updateCountdown(); setInterval(updateCountdown, 1000);
 
-  /* ── WAITLIST ── */
+  /* WAITLIST */
   function handleWaitlist(e) {
     const input = document.getElementById('waitlist-email');
     if (!input.value.trim() || !input.value.includes('@')) {
       e.preventDefault();
       input.style.outline = '1px solid #f87171';
-      setTimeout(()=>input.style.outline='', 1500); return;
+      setTimeout(()=>input.style.outline='', 1500);
+      return;
     }
+    const btn = document.getElementById('waitlist-btn');
+    btn.textContent = '...'; btn.disabled = true;
     setTimeout(()=>{
       document.getElementById('waitlist-row').style.display  = 'none';
       document.getElementById('waitlist-note').style.display = 'none';
@@ -629,15 +607,51 @@
     }, 800);
   }
 
-  /* ── CONTACT ── */
+  /* CONTACT — validation complète + soumission iframe */
   function handleContact(e) {
-    setTimeout(()=>{
-      document.querySelector('.contact-form').style.display = 'none';
+    const fields = ['c-prenom','c-nom','c-email','c-objet','c-message'];
+    let valid = true;
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('error');
+      const val = el.value.trim();
+      if (!val || (id === 'c-email' && !val.includes('@'))) {
+        el.classList.add('error');
+        valid = false;
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      document.querySelector('#form-contact .error').focus();
+      return;
+    }
+
+    // Soumission valide → on laisse le form partir dans l'iframe
+    const btn = document.getElementById('contact-btn');
+    btn.disabled = true;
+    document.getElementById('contact-btn-label').textContent = 'Envoi en cours…';
+
+    // On écoute le chargement de l'iframe pour confirmer
+    const iframe = document.getElementById('fs-contact');
+    const onLoad = () => {
+      document.getElementById('form-contact').style.display  = 'none';
       document.getElementById('contact-success').style.display = 'block';
-    }, 800);
+      iframe.removeEventListener('load', onLoad);
+    };
+    iframe.addEventListener('load', onLoad);
+
+    // Fallback si l'iframe ne répond pas dans les 3s
+    setTimeout(() => {
+      if (document.getElementById('form-contact').style.display !== 'none') {
+        document.getElementById('form-contact').style.display  = 'none';
+        document.getElementById('contact-success').style.display = 'block';
+      }
+    }, 3000);
   }
 
-  /* ── PARALLAX ── */
+  /* PARALLAX */
   if (window.matchMedia('(hover: hover)').matches) {
     document.addEventListener('mousemove', e => {
       const x=(e.clientX/window.innerWidth-0.5)*28;
@@ -647,7 +661,7 @@
     });
   }
 
-  /* ── SCROLL REVEAL ── */
+  /* SCROLL REVEAL */
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -655,7 +669,7 @@
         entry.target.style.transform = 'translateY(0)';
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.1 });
 
   document.querySelectorAll('#waitlist, #contact').forEach(el => {
     el.style.opacity = '0';
