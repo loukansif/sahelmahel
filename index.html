@@ -200,6 +200,7 @@
 
     .form-note { font-size:0.7rem; color:var(--muted); margin-top:12px; }
     .success-msg { display:none; font-size:0.85rem; color:var(--accent3); margin-top:12px; }
+    .error-msg { display:none; font-size:0.75rem; color:#f87171; margin-top:10px; }
 
     /* CONTACT */
     #contact { padding:100px 20px 120px; max-width:640px; margin:0 auto; text-align:center; width:100%; }
@@ -302,9 +303,6 @@
   <div class="badge">● Bientôt disponible</div>
 </nav>
 
-<!-- iframe caché uniquement pour la waitlist -->
-<iframe name="fs-waitlist" style="display:none;"></iframe>
-
 <!-- HERO -->
 <section id="hero">
   <div class="pill"><span class="dot"></span>Quelque chose se prépare</div>
@@ -340,18 +338,13 @@
   <h2 class="section-title">Soyez les premiers.</h2>
   <p class="section-sub">Inscrivez-vous et recevez un accès en avant-première dès l'ouverture de SahelMahel.</p>
 
-  <form id="form-waitlist" action="https://formsubmit.co/tannafriq@gmail.com" method="POST" target="fs-waitlist" onsubmit="handleWaitlist(event)">
-    <input type="hidden" name="_subject"  value="🌊 Nouveau inscrit — SahelMahel Waitlist">
-    <input type="hidden" name="_captcha"  value="false">
-    <input type="hidden" name="_template" value="table">
-    <input type="text"   name="_gotcha"   style="display:none">
-    <div class="form-inline" id="waitlist-row">
-      <input type="email" name="email" id="waitlist-email" placeholder="Votre adresse e-mail…" required/>
-      <button type="submit" class="btn" id="waitlist-btn">Être notifié</button>
-    </div>
-  </form>
-  <p class="form-note"   id="waitlist-note">Aucun spam. Juste l'essentiel, au bon moment.</p>
+  <div id="waitlist-row" class="form-inline">
+    <input type="email" id="waitlist-email" placeholder="Votre adresse e-mail…"/>
+    <button class="btn" id="waitlist-btn" onclick="handleWaitlist()">Être notifié</button>
+  </div>
+  <p class="form-note" id="waitlist-note">Aucun spam. Juste l'essentiel, au bon moment.</p>
   <p class="success-msg" id="waitlist-success">✓ Vous serez parmi les premiers informés.</p>
+  <p class="error-msg"   id="waitlist-error">⚠ Erreur lors de l'inscription. Veuillez réessayer.</p>
 </section>
 
 <div class="divider"></div>
@@ -363,7 +356,6 @@
   <p class="section-sub">Partenariat, presse ou curiosité — on lit tout.</p>
 
   <div class="contact-card">
-    <!-- Pas de <form> HTML — soumission via fetch -->
     <div class="contact-form" id="contact-form">
 
       <div class="grid-2">
@@ -424,6 +416,12 @@
 </div>
 
 <script>
+  /* ─── CONFIGURATION ───────────────────────────────────────────────────────
+   * Crée ton compte gratuit sur https://web3forms.com/
+   * Entre ton email → copie la clé Access Key → colle-la ci-dessous.
+   * ─────────────────────────────────────────────────────────────────────── */
+  const WEB3FORMS_KEY = '830918a6-89da-459a-bc8c-c0f37194b77a';
+
   /* PARTICLES */
   const canvas = document.getElementById('canvas');
   const ctx = canvas.getContext('2d');
@@ -472,67 +470,85 @@
   }
   updateCountdown(); setInterval(updateCountdown,1000);
 
-  /* WAITLIST — iframe */
-  function handleWaitlist(e){
-    const input=document.getElementById('waitlist-email');
-    if(!input.value.trim()||!input.value.includes('@')){
-      e.preventDefault(); input.style.outline='1px solid #f87171';
-      setTimeout(()=>input.style.outline='',1500); return;
-    }
-    const btn=document.getElementById('waitlist-btn');
-    btn.textContent='...'; btn.disabled=true;
-    setTimeout(()=>{
-      document.getElementById('waitlist-row').style.display='none';
-      document.getElementById('waitlist-note').style.display='none';
-      document.getElementById('waitlist-success').style.display='block';
-    },800);
+  /* ─── HELPER — appel Web3Forms ───────────────────────────────────────── */
+  async function sendWeb3Forms(payload) {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ access_key: WEB3FORMS_KEY, ...payload })
+    });
+    const data = await res.json();
+    if (!res.ok || data.success !== true) throw new Error(data.message || 'Erreur');
+    return data;
   }
 
-  /* CONTACT — fetch AJAX pur, zéro <form>, zéro iframe */
-  async function handleContact(){
-    const ids = ['c-prenom','c-nom','c-email','c-objet','c-message'];
-    let valid = true;
+  /* ─── WAITLIST ───────────────────────────────────────────────────────── */
+  async function handleWaitlist() {
+    const input  = document.getElementById('waitlist-email');
+    const btn    = document.getElementById('waitlist-btn');
+    const errEl  = document.getElementById('waitlist-error');
+    errEl.style.display = 'none';
 
-    ids.forEach(id=>{
-      const el=document.getElementById(id);
-      el.classList.remove('error');
-      if(!el.value.trim()||(id==='c-email'&&!el.value.includes('@'))){
-        el.classList.add('error'); valid=false;
-      }
-    });
-
-    if(!valid){
-      document.querySelector('.error').scrollIntoView({behavior:'smooth',block:'center'});
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) {
+      input.style.outline = '1px solid #f87171';
+      setTimeout(() => input.style.outline = '', 1500);
       return;
     }
 
-    const btn   = document.getElementById('contact-btn');
-    const label = document.getElementById('contact-btn-label');
-    const errEl = document.getElementById('contact-error');
-    btn.disabled=true; label.textContent='Envoi en cours…'; errEl.style.display='none';
-
-    const body = new FormData();
-    body.append('prenom',  document.getElementById('c-prenom').value.trim());
-    body.append('nom',     document.getElementById('c-nom').value.trim());
-    body.append('email',   document.getElementById('c-email').value.trim());
-    body.append('objet',   document.getElementById('c-objet').value.trim());
-    body.append('message', document.getElementById('c-message').value.trim());
-    body.append('_subject',  '📩 Message — SahelMahel Contact');
-    body.append('_captcha',  'false');
-    body.append('_template', 'table');
+    btn.textContent = '...'; btn.disabled = true;
 
     try {
-      const res  = await fetch('https://formsubmit.co/ajax/tannafriq@gmail.com',{
-        method:'POST', headers:{'Accept':'application/json'}, body
+      await sendWeb3Forms({
+        subject: '🌊 Nouveau inscrit — SahelMahel Waitlist',
+        email,
+        message: `Nouvelle inscription waitlist : ${email}`
       });
-      const data = await res.json();
-      if(data.success==='true'||data.success===true){
-        document.getElementById('contact-form').style.display='none';
-        document.getElementById('contact-success').style.display='block';
-      } else { throw new Error(); }
-    } catch(e){
-      btn.disabled=false; label.textContent='Envoyer le message';
-      errEl.style.display='block';
+      document.getElementById('waitlist-row').style.display  = 'none';
+      document.getElementById('waitlist-note').style.display = 'none';
+      document.getElementById('waitlist-success').style.display = 'block';
+    } catch(e) {
+      btn.textContent = 'Être notifié'; btn.disabled = false;
+      errEl.style.display = 'block';
+    }
+  }
+
+  /* ─── CONTACT ────────────────────────────────────────────────────────── */
+  async function handleContact() {
+    const fields = ['c-prenom','c-nom','c-email','c-objet','c-message'];
+    let valid = true;
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('error');
+      if (!el.value.trim() || (id === 'c-email' && !el.value.includes('@'))) {
+        el.classList.add('error'); valid = false;
+      }
+    });
+
+    if (!valid) {
+      document.querySelector('.error').scrollIntoView({ behavior:'smooth', block:'center' });
+      return;
+    }
+
+    const btn    = document.getElementById('contact-btn');
+    const label  = document.getElementById('contact-btn-label');
+    const errEl  = document.getElementById('contact-error');
+    btn.disabled = true; label.textContent = 'Envoi en cours…'; errEl.style.display = 'none';
+
+    try {
+      await sendWeb3Forms({
+        subject: '📩 Message — SahelMahel Contact',
+        name:    `${document.getElementById('c-prenom').value.trim()} ${document.getElementById('c-nom').value.trim()}`,
+        email:   document.getElementById('c-email').value.trim(),
+        objet:   document.getElementById('c-objet').value.trim(),
+        message: document.getElementById('c-message').value.trim()
+      });
+      document.getElementById('contact-form').style.display    = 'none';
+      document.getElementById('contact-success').style.display = 'block';
+    } catch(e) {
+      btn.disabled = false; label.textContent = 'Envoyer le message';
+      errEl.style.display = 'block';
     }
   }
 
