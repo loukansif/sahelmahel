@@ -200,7 +200,6 @@
 
     .form-note { font-size:0.7rem; color:var(--muted); margin-top:12px; }
     .success-msg { display:none; font-size:0.85rem; color:var(--accent3); margin-top:12px; }
-    .waitlist-error-msg { display:none; font-size:0.75rem; color:#f87171; margin-top:10px; }
 
     /* CONTACT */
     #contact { padding:100px 20px 120px; max-width:640px; margin:0 auto; text-align:center; width:100%; }
@@ -300,8 +299,11 @@
 
 <nav>
   <div class="logo">SahelMahel</div>
-  <div class="badge">● Bientôt disponible ●</div>
+  <div class="badge">● Bientôt disponible</div>
 </nav>
+
+<!-- iframe caché uniquement pour la waitlist -->
+<iframe name="fs-waitlist" style="display:none;"></iframe>
 
 <!-- HERO -->
 <section id="hero">
@@ -333,22 +335,23 @@
 <div class="divider"></div>
 
 <!-- WAITLIST -->
-<!-- ✅ Pas de action/method/target : soumission 100% fetch -->
 <section id="waitlist">
   <div class="section-tag">● Être notifié</div>
   <h2 class="section-title">Soyez les premiers.</h2>
   <p class="section-sub">Inscrivez-vous et recevez un accès en avant-première dès l'ouverture de SahelMahel.</p>
 
-  <div class="form-inline" id="waitlist-row">
-    <!-- Champ honeypot anti-spam caché -->
-    <input type="text" id="w-gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
-    <input type="email" id="waitlist-email" placeholder="Votre adresse e-mail…"/>
-    <button class="btn" id="waitlist-btn" onclick="handleWaitlist()">Être notifié</button>
-  </div>
-
-  <p class="form-note"    id="waitlist-note">Aucun spam. Juste l'essentiel, au bon moment.</p>
-  <p class="success-msg"  id="waitlist-success">✓ Vous serez parmi les premiers informés.</p>
-  <p class="waitlist-error-msg" id="waitlist-error">⚠ Erreur lors de l'inscription. Veuillez réessayer.</p>
+  <form id="form-waitlist" action="https://formsubmit.co/tannafriq@gmail.com" method="POST" target="fs-waitlist" onsubmit="handleWaitlist(event)">
+    <input type="hidden" name="_subject"  value="🌊 Nouveau inscrit — SahelMahel Waitlist">
+    <input type="hidden" name="_captcha"  value="false">
+    <input type="hidden" name="_template" value="table">
+    <input type="text"   name="_gotcha"   style="display:none">
+    <div class="form-inline" id="waitlist-row">
+      <input type="email" name="email" id="waitlist-email" placeholder="Votre adresse e-mail…" required/>
+      <button type="submit" class="btn" id="waitlist-btn">Être notifié</button>
+    </div>
+  </form>
+  <p class="form-note"   id="waitlist-note">Aucun spam. Juste l'essentiel, au bon moment.</p>
+  <p class="success-msg" id="waitlist-success">✓ Vous serez parmi les premiers informés.</p>
 </section>
 
 <div class="divider"></div>
@@ -360,7 +363,7 @@
   <p class="section-sub">Partenariat, presse ou curiosité — on lit tout.</p>
 
   <div class="contact-card">
-    <!-- ✅ Pas de <form> HTML — soumission 100% fetch/AJAX -->
+    <!-- Pas de <form> HTML — soumission via fetch -->
     <div class="contact-form" id="contact-form">
 
       <div class="grid-2">
@@ -388,9 +391,6 @@
         <label>Message *</label>
         <textarea id="c-message" placeholder="Décrivez votre demande…"></textarea>
       </div>
-
-      <!-- Honeypot anti-spam caché -->
-      <input type="text" id="c-gotcha" style="display:none" tabindex="-1" autocomplete="off"/>
 
       <button class="btn-full" id="contact-btn" onclick="handleContact()">
         <span id="contact-btn-label">Envoyer le message</span>
@@ -424,27 +424,23 @@
 </div>
 
 <script>
-  /* ============================================================
-     PARTICLES
-  ============================================================ */
+  /* PARTICLES */
   const canvas = document.getElementById('canvas');
-  const ctx    = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   let W, H, particles = [];
-
-  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-  resize();
-  window.addEventListener('resize', resize);
+  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+  resize(); window.addEventListener('resize',resize);
 
   class Particle {
     constructor(){ this.reset(); }
     reset(){
-      this.x = Math.random() * W; this.y = Math.random() * H;
-      this.r = Math.random() * 1.4 + 0.3;
-      this.vx = (Math.random() - 0.5) * 0.25; this.vy = (Math.random() - 0.5) * 0.25;
-      this.a = Math.random() * 0.45 + 0.08;
-      this.color = Math.random() > 0.7 ? '0,255,163' : '0,198,255';
+      this.x=Math.random()*W; this.y=Math.random()*H;
+      this.r=Math.random()*1.4+0.3;
+      this.vx=(Math.random()-0.5)*0.25; this.vy=(Math.random()-0.5)*0.25;
+      this.a=Math.random()*0.45+0.08;
+      this.color=Math.random()>0.7?'0,255,163':'0,198,255';
     }
-    update(){ this.x += this.vx; this.y += this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset(); }
+    update(){ this.x+=this.vx; this.y+=this.vy; if(this.x<0||this.x>W||this.y<0||this.y>H)this.reset(); }
     draw(){ ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2); ctx.fillStyle=`rgba(${this.color},${this.a})`; ctx.fill(); }
   }
   for(let i=0;i<110;i++) particles.push(new Particle());
@@ -464,113 +460,56 @@
   function animate(){ ctx.clearRect(0,0,W,H); particles.forEach(p=>{p.update();p.draw();}); drawLines(); requestAnimationFrame(animate); }
   animate();
 
-  /* ============================================================
-     COUNTDOWN
-  ============================================================ */
+  /* COUNTDOWN */
   const target = new Date('2026-09-01T00:00:00');
   function updateCountdown(){
-    const diff = target - new Date();
-    if(diff <= 0){
-      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent='00');
-      return;
-    }
+    const diff=target-new Date();
+    if(diff<=0){ ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id=>document.getElementById(id).textContent='00'); return; }
     document.getElementById('cd-days').textContent  = String(Math.floor(diff/86400000)).padStart(2,'0');
     document.getElementById('cd-hours').textContent = String(Math.floor((diff%86400000)/3600000)).padStart(2,'0');
     document.getElementById('cd-mins').textContent  = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
     document.getElementById('cd-secs').textContent  = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  updateCountdown(); setInterval(updateCountdown,1000);
 
-  /* ============================================================
-     WAITLIST — 100% fetch/AJAX, zéro <form>, zéro iframe
-  ============================================================ */
-  async function handleWaitlist(){
-    const input   = document.getElementById('waitlist-email');
-    const btn     = document.getElementById('waitlist-btn');
-    const errEl   = document.getElementById('waitlist-error');
-    const gotcha  = document.getElementById('w-gotcha');
-
-    // Réinitialiser erreur
-    errEl.style.display = 'none';
-    input.style.outline = '';
-
-    // Validation e-mail
-    const email = input.value.trim();
-    if(!email || !email.includes('@') || !email.includes('.')){
-      input.style.outline = '1px solid #f87171';
-      setTimeout(() => input.style.outline = '', 2000);
-      return;
+  /* WAITLIST — iframe */
+  function handleWaitlist(e){
+    const input=document.getElementById('waitlist-email');
+    if(!input.value.trim()||!input.value.includes('@')){
+      e.preventDefault(); input.style.outline='1px solid #f87171';
+      setTimeout(()=>input.style.outline='',1500); return;
     }
-
-    // Anti-bot : si honeypot rempli, on ignore silencieusement
-    if(gotcha.value){ return; }
-
-    btn.textContent = '…';
-    btn.disabled    = true;
-
-    const body = new FormData();
-    body.append('email',     email);
-    body.append('_subject',  '🌊 Nouveau inscrit — SahelMahel Waitlist');
-    body.append('_captcha',  'false');
-    body.append('_template', 'table');
-    body.append('_gotcha',   '');   // doit être vide pour passer
-
-    try {
-      const res  = await fetch('https://formsubmit.co/ajax/tannafriq@gmail.com', {
-        method:  'POST',
-        headers: { 'Accept': 'application/json' },
-        body
-      });
-      const data = await res.json();
-
-      if(data.success === 'true' || data.success === true){
-        document.getElementById('waitlist-row').style.display  = 'none';
-        document.getElementById('waitlist-note').style.display = 'none';
-        document.getElementById('waitlist-success').style.display = 'block';
-      } else {
-        throw new Error('FormSubmit error');
-      }
-    } catch(e){
-      btn.disabled    = false;
-      btn.textContent = 'Être notifié';
-      errEl.style.display = 'block';
-    }
+    const btn=document.getElementById('waitlist-btn');
+    btn.textContent='...'; btn.disabled=true;
+    setTimeout(()=>{
+      document.getElementById('waitlist-row').style.display='none';
+      document.getElementById('waitlist-note').style.display='none';
+      document.getElementById('waitlist-success').style.display='block';
+    },800);
   }
 
-  /* ============================================================
-     CONTACT — 100% fetch/AJAX, zéro <form>, zéro iframe
-  ============================================================ */
+  /* CONTACT — fetch AJAX pur, zéro <form>, zéro iframe */
   async function handleContact(){
-    const ids  = ['c-prenom','c-nom','c-email','c-objet','c-message'];
-    const btn  = document.getElementById('contact-btn');
-    const label= document.getElementById('contact-btn-label');
-    const errEl= document.getElementById('contact-error');
-    const gotcha = document.getElementById('c-gotcha');
-
-    errEl.style.display = 'none';
+    const ids = ['c-prenom','c-nom','c-email','c-objet','c-message'];
     let valid = true;
 
-    ids.forEach(id => {
-      const el = document.getElementById(id);
+    ids.forEach(id=>{
+      const el=document.getElementById(id);
       el.classList.remove('error');
-      const v = el.value.trim();
-      if(!v || (id === 'c-email' && (!v.includes('@') || !v.includes('.')))) {
-        el.classList.add('error');
-        valid = false;
+      if(!el.value.trim()||(id==='c-email'&&!el.value.includes('@'))){
+        el.classList.add('error'); valid=false;
       }
     });
 
     if(!valid){
-      document.querySelector('.error').scrollIntoView({ behavior:'smooth', block:'center' });
+      document.querySelector('.error').scrollIntoView({behavior:'smooth',block:'center'});
       return;
     }
 
-    // Anti-bot
-    if(gotcha.value){ return; }
-
-    btn.disabled    = true;
-    label.textContent = 'Envoi en cours…';
+    const btn   = document.getElementById('contact-btn');
+    const label = document.getElementById('contact-btn-label');
+    const errEl = document.getElementById('contact-error');
+    btn.disabled=true; label.textContent='Envoi en cours…'; errEl.style.display='none';
 
     const body = new FormData();
     body.append('prenom',  document.getElementById('c-prenom').value.trim());
@@ -581,57 +520,41 @@
     body.append('_subject',  '📩 Message — SahelMahel Contact');
     body.append('_captcha',  'false');
     body.append('_template', 'table');
-    body.append('_gotcha',   '');
 
     try {
-      const res  = await fetch('https://formsubmit.co/ajax/tannafriq@gmail.com', {
-        method:  'POST',
-        headers: { 'Accept': 'application/json' },
-        body
+      const res  = await fetch('https://formsubmit.co/ajax/tannafriq@gmail.com',{
+        method:'POST', headers:{'Accept':'application/json'}, body
       });
       const data = await res.json();
-
-      if(data.success === 'true' || data.success === true){
-        document.getElementById('contact-form').style.display    = 'none';
-        document.getElementById('contact-success').style.display = 'block';
-      } else {
-        throw new Error('FormSubmit error');
-      }
+      if(data.success==='true'||data.success===true){
+        document.getElementById('contact-form').style.display='none';
+        document.getElementById('contact-success').style.display='block';
+      } else { throw new Error(); }
     } catch(e){
-      btn.disabled    = false;
-      label.textContent = 'Envoyer le message';
-      errEl.style.display = 'block';
+      btn.disabled=false; label.textContent='Envoyer le message';
+      errEl.style.display='block';
     }
   }
 
-  /* ============================================================
-     PARALLAX
-  ============================================================ */
+  /* PARALLAX */
   if(window.matchMedia('(hover: hover)').matches){
-    document.addEventListener('mousemove', e => {
-      const x = (e.clientX / window.innerWidth  - 0.5) * 28;
-      const y = (e.clientY / window.innerHeight - 0.5) * 28;
-      document.querySelector('.orb-1').style.transform = `translate(${x}px,${y}px)`;
-      document.querySelector('.orb-2').style.transform = `translate(${-x}px,${-y}px)`;
+    document.addEventListener('mousemove',e=>{
+      const x=(e.clientX/window.innerWidth-0.5)*28;
+      const y=(e.clientY/window.innerHeight-0.5)*28;
+      document.querySelector('.orb-1').style.transform=`translate(${x}px,${y}px)`;
+      document.querySelector('.orb-2').style.transform=`translate(${-x}px,${-y}px)`;
     });
   }
 
-  /* ============================================================
-     SCROLL REVEAL
-  ============================================================ */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.style.opacity   = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
+  /* SCROLL REVEAL */
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.style.opacity='1'; entry.target.style.transform='translateY(0)'; }
     });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('#waitlist, #contact').forEach(el => {
-    el.style.opacity   = '0';
-    el.style.transform = 'translateY(32px)';
-    el.style.transition= 'opacity 0.8s ease, transform 0.8s ease';
+  },{threshold:0.1});
+  document.querySelectorAll('#waitlist,#contact').forEach(el=>{
+    el.style.opacity='0'; el.style.transform='translateY(32px)';
+    el.style.transition='opacity 0.8s ease,transform 0.8s ease';
     observer.observe(el);
   });
 </script>
