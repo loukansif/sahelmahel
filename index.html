@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <title>Qui paye ?</title>
-  <link rel="icon" type="image/png" href="/img/favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -211,7 +210,7 @@ const TEXT = {
     themeTitle: "Thème",
     qrcode: "QR Code",
     share: "Partager",
-    shareText: (name) => `🎰 Découvre l'appli qui désigne le payeur en un clic 👉`,
+    shareText: `🎰 Découvre l'appli qui désigne le payeur en un clic 👉`,
     shareFallback: "Lien copié ! Colle-le où tu veux 😄",
     copyText: (name) => `${name} doit payer ! 💸`,
     resultLabel: (name) => `${name} a été tiré au sort`
@@ -234,7 +233,7 @@ const TEXT = {
     themeTitle: "Theme",
     qrcode: "QR Code",
     share: "Share",
-    shareText: (name) => `🎰 Discover the app that picks who pays in one click 👉`,
+    shareText: `🎰 Discover the app that picks who pays in one click 👉`,
     shareFallback: "Link copied! Paste it anywhere 😄",
     copyText: (name) => `${name} has to pay! 💸`,
     resultLabel: (name) => `${name} was selected`
@@ -257,7 +256,7 @@ const TEXT = {
     themeTitle: "المظهر",
     qrcode: "QR Code",
     share: "مشاركة",
-    shareText: (name) => `🎰 اكتشف التطبيق الذي يختار من يدفع بنقرة واحدة 👉`,
+    shareText: `🎰 اكتشف التطبيق الذي يختار من يدفع بنقرة واحدة 👉`,
     shareFallback: "تم نسخ الرابط! الصقه أينما تريد 😄",
     copyText: (name) => `💸 ${name} سيدفع!`,
     resultLabel: (name) => `تم اختيار ${name}`
@@ -368,19 +367,18 @@ function playVictorySound() {
   });
 }
 
-async function shareLink(winner, shareText, fallbackMsg) {
-  const url = 'https://shakbaz.github.io/quipaye/';
-  const text = shareText(winner);
+async function shareLink(shareText, fallbackMsg) {
+  const url = 'https://www.sahelmahel.com/';
   try {
     if (navigator.share) {
-      await navigator.share({ title: 'Qui paye ?', text, url });
+      await navigator.share({ title: 'Qui paye ?', text: shareText, url });
     } else {
-      await navigator.clipboard.writeText(text + '\n' + url);
+      await navigator.clipboard.writeText(shareText + '\n' + url);
       alert(fallbackMsg);
     }
   } catch(e) {
     if (e.name !== 'AbortError') {
-      await navigator.clipboard.writeText(text + '\n' + url);
+      await navigator.clipboard.writeText(shareText + '\n' + url);
       alert(fallbackMsg);
     }
   }
@@ -581,9 +579,8 @@ function App() {
 
   const reset = () => { setPhase('idle'); setWinner(''); setCurrentName(''); };
   const handleShare = async () => {
-    if (!winner) return;
     setSharing(true);
-    await shareLink(winner, t.shareText, t.shareFallback);
+    await shareLink(t.shareText, t.shareFallback);
     setSharing(false);
   };
 
@@ -591,7 +588,7 @@ function App() {
     <div className="w-full max-w-sm mx-auto p-4 flex flex-col gap-4" style={{minHeight:'100vh', paddingTop:'2rem', paddingBottom:'2rem'}} dir={isArabic ? 'rtl' : 'ltr'}>
       <div className="flex items-start justify-between gap-3">
         <div>
-          <h1 className="text-3xl font-black plain-text tracking-tight">{t.title}</h1>
+          <h1 className="text-3xl font-black plain-text tracking-tight whitespace-nowrap">{t.title}</h1>
           <p className="muted text-xs mt-0.5">{t.subtitle}</p>
         </div>
         <div dir="ltr"><HeaderActions
