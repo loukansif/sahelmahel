@@ -86,6 +86,21 @@
     ]
   }
   </script>
+  <!-- ═══ GOOGLE ANALYTICS 4 ═══ -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLZ01F2QHL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-DLZ01F2QHL', { anonymize_ip: true });
+  </script>
   <title>Qui paye ?</title>
   <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1244,6 +1259,42 @@
     }
 
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+  <!-- ═══ AXEPTIO (code officiel copié depuis ton dashboard) ═══ -->
+  <script>
+    window.axeptioSettings = {
+      clientId: "6a2143507302269a0de7bbfe",
+      cookiesVersion: "ccd772a2-6190-4517-98a6-5df03e8bd3ff",
+      googleConsentMode: {
+        default: {
+          analytics_storage: "denied",
+          ad_storage: "denied",
+          ad_user_data: "denied",
+          ad_personalization: "denied",
+          wait_for_update: 500
+        }
+      }
+    };
+    (function (d, s) {
+      var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+      e.async = true; e.src = "//static.axept.io/sdk.js";
+      t.parentNode.insertBefore(e, t);
+    })(document, "script");
+  </script>
+
+  <!-- ═══ LIAISON AXEPTIO → GA4 ═══ -->
+  <script>
+    window._axcb = window._axcb || [];
+    window._axcb.push(function (sdk) {
+      sdk.on("cookies:complete", function (choices) {
+        gtag('consent', 'update', {
+          analytics_storage: choices.google_analytics ? 'granted' : 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+      });
+    });
   </script>
 </body>
 
