@@ -1390,10 +1390,14 @@
           <div
             style={{
               position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 998,
-              padding: "6px 12px 8px", textAlign: "center",
+              padding: "8px 12px 10px", textAlign: "center",
               backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
-              borderTop: "1px solid rgba(168, 85, 247, 0.08)",
-              background: "rgba(0,0,0,0.15)"
+              borderTop: theme === 'dark'
+                ? "1px solid rgba(168, 85, 247, 0.2)"
+                : "1px solid rgba(124, 58, 237, 0.15)",
+              background: theme === 'dark'
+                ? "rgba(13, 13, 26, 0.85)"
+                : "rgba(240, 235, 255, 0.92)"
             }}
             dir="ltr"
           >
@@ -1406,22 +1410,41 @@
                 <button
                   key={key}
                   onClick={() => setModal(key)}
-                  className="soft hover:underline"
-                  style={{ fontSize: "10px", opacity: 0.45, background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                  style={{
+                    fontSize: "11px",
+                    color: theme === 'dark' ? "rgba(196, 181, 253, 0.8)" : "rgba(91, 58, 170, 0.85)",
+                    background: "none", border: "none", cursor: "pointer", padding: 0,
+                    textDecoration: "none"
+                  }}
+                  onMouseEnter={e => e.target.style.textDecoration = 'underline'}
+                  onMouseLeave={e => e.target.style.textDecoration = 'none'}
                 >
                   {label}
                 </button>
               ))}
-              <span className="soft" style={{ fontSize: "10px", opacity: 0.3 }}>·</span>
+              <span style={{
+                fontSize: "11px",
+                color: theme === 'dark' ? "rgba(196, 181, 253, 0.4)" : "rgba(91, 58, 170, 0.4)"
+              }}>·</span>
               <button
                 onClick={() => window.openAxeptioCookies && window.openAxeptioCookies()}
-                className="soft hover:underline"
-                style={{ fontSize: "10px", opacity: 0.45, background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                style={{
+                  fontSize: "11px",
+                  color: theme === 'dark' ? "rgba(196, 181, 253, 0.8)" : "rgba(91, 58, 170, 0.85)",
+                  background: "none", border: "none", cursor: "pointer", padding: 0
+                }}
+                onMouseEnter={e => e.target.style.textDecoration = 'underline'}
+                onMouseLeave={e => e.target.style.textDecoration = 'none'}
               >
                 🍪 Cookies
               </button>
             </div>
-            <p className="soft" style={{ fontSize: "9px", opacity: 0.3, marginTop: "2px" }}>
+            <p style={{
+              fontSize: "10px",
+              marginTop: "3px",
+              margin: "3px 0 0",
+              color: theme === 'dark' ? "rgba(196, 181, 253, 0.45)" : "rgba(91, 58, 170, 0.5)"
+            }}>
               © {new Date().getFullYear()} SahelMahel — Tous droits réservés
             </p>
           </div>
@@ -1434,7 +1457,7 @@
 
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
- <!-- ═══ AXEPTIO — configuration ═══ -->
+  <!-- ═══ AXEPTIO — configuration ═══ -->
   <script>
     window.axeptioSettings = {
       clientId: "6a2143507302269a0de7bbfe",
