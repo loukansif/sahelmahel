@@ -518,6 +518,32 @@
       );
     }
 
+    function FlagTZM({ size = 20 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
+          style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
+          <defs><clipPath id="c-tzm"><circle cx="14" cy="14" r="14" /></clipPath></defs>
+          <g clipPath="url(#c-tzm)">
+            {/* Bande bleue */}
+            <rect x="0" y="0" width="28" height="9.34" fill="#0099CC" />
+            {/* Bande verte */}
+            <rect x="0" y="9.33" width="28" height="9.34" fill="#99CC33" />
+            {/* Bande jaune */}
+            <rect x="0" y="18.66" width="28" height="9.34" fill="#FFE513" />
+            {/* Symbole Yaz ⵣ en rouge centré */}
+            <text
+              x="14" y="18"
+              textAnchor="middle"
+              fontSize="14"
+              fontWeight="bold"
+              fill="#CC0033"
+              fontFamily="serif"
+            >ⵣ</text>
+          </g>
+        </svg>
+      );
+    }
+
     function FlagGB({ size = 20 }) {
       return (
         <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
@@ -575,6 +601,7 @@
     const LANG_OPTIONS = [
       { key: 'FR', FlagComponent: FlagFR, label: 'Français' },
       { key: 'AR', FlagComponent: FlagDZ, label: 'العربية' },
+      { key: 'TZM', FlagComponent: FlagTZM, label: 'ⵜⴰⵎⴰⵣⵉⵖⵜ' },
       { key: 'EN', FlagComponent: FlagGB, label: 'English' },
       { key: 'IT', FlagComponent: FlagIT, label: 'Italiano' },
       { key: 'ES', FlagComponent: FlagES, label: 'Español' },
@@ -651,6 +678,29 @@
         shareFallback: "تم نسخ الرابط! الصقه أينما تريد 😄",
         copyText: (name) => `💸 ${name} سيدفع!`,
         resultLabel: (name) => `تم اختيار ${name}`
+      },
+      TZM: {
+        title: "ⵎⵉⵯ ⵉⵅⵍⵍⵚⵏ ?",
+        subtitle: "ⵍⵇⴷⵔ ⵉⴱⴹⴰⵜ !",
+        addFriends: "ⵔⵏⵓ ⵉⵎⴷⴷⵓⴽⴽⴰⵍ",
+        placeholder: "ⴽⵜⴱ ⵉⵙⵎ...",
+        helper: "ⵔⵏⵓ ⵙⵉⵏ ⵉⵎⴷⴷⵓⴽⴽⴰⵍ ⵓⵔ ⵓⵔⴰⵔ 👆",
+        drawing: "ⵜⴰⵙⵖⴰⵔⵜ ⵜⵍⵍⴰ ⴷⴳ ⵓⴱⵔⵉⴷ...",
+        cta: "ⴳⵔ ⵜⴰⵙⵖⴰⵔⵜ !",
+        winner: "🎉 ⵏⵜⵜⴰ ⴰⵢ ⵉⵅⵍⵍⵚⵏ !",
+        replay: "🔄 ⵓⵔⴰⵔ ⴷⴰⵖ",
+        copy: "📋 ⵙⵏⵖⵍ",
+        history: "ⴰⵎⴰⵣⵔⴰⵢ ⵏ ⵜⵙⵖⴰⵔⵉⵏ",
+        emptyHistory: "ⵓⵔ ⵜⵍⵍⵉ ⵛⴰ ⵏ ⵜⴰⵙⵖⴰⵔⵜ ⵜⵓⵔⴰ...",
+        historyTitle: "ⴰⵎⴰⵣⵔⴰⵢ",
+        languageTitle: "ⵜⵓⵜⵍⴰⵢⵜ",
+        themeTitle: "ⴰⵙⴰⵜⴰⵍ",
+        qrcode: "QR Code",
+        share: "ⴱⴹⵓ",
+        shareText: `🎰 ⵙⵜⵉ ⴰⵣⵔⴰⴼ ⵉⵙⵎⴰⵏ ⵎⴰⵏ ⴰⴷ ⵉⵙⴰⵡⴰⵍ 👉`,
+        shareFallback: "ⴰⵙⵖⵏ ⵢⵜⵜⵡⴰⵙⵏⵖⵍ ! ⵙⵍⵖ ⵜ ⵎⴰⵏⵉ ⵜⵔⵉⴷ 😄",
+        copyText: (name) => `${name} ⵉⵍⴰⵇ ⴰⴷ ⵉⵅⵍⵍⵚ ! 💸`,
+        resultLabel: (name) => `${name} ⵢⵜⵜⵡⴰⴳⵔⴰⵏ ⴷⴳ ⵜⴰⵙⵖⴰⵔⵜ`
       },
       IT: {
         title: "Chi paga?",
@@ -1021,7 +1071,7 @@
           <div className="flex items-start justify-between gap-3">
             <div className="header-title">
               <h1
-                className={`font-black plain-text tracking-tight ${lang === 'ES' ? 'text-2xl' : 'text-3xl'} whitespace-nowrap`}
+                className={`font-black plain-text tracking-tight ${lang === 'ES' || lang === 'TZM' ? 'text-2xl' : 'text-3xl'} whitespace-nowrap`}
                 style={{ lineHeight: 1.1 }}
               >
                 {t.title}
