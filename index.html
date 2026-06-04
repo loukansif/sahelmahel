@@ -4,6 +4,88 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- ═══════════════════ SEO CORE ═══════════════════ -->
+  <title>Qui paye ? 🎰 Tirage au sort pour choisir le payeur</title>
+  <meta name="description"
+    content="Désigne aléatoirement qui paye la prochaine fois ! Ajoute tes amis, lance le tirage et laisse le sort décider. Gratuit, rapide, multilingue (FR, AR, EN, IT, ES, TZM)." />
+  <meta name="keywords"
+    content="qui paye, tirage au sort, choisir payeur, application amis, random picker, من يدفع, chi paga, quién paga" />
+  <meta name="author" content="SahelMahel" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.sahelmahel.com/" />
+
+  <!-- ═══════════════════ OPEN GRAPH (Facebook, WhatsApp, LinkedIn) ═══════════════════ -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.sahelmahel.com/" />
+  <meta property="og:title" content="Qui paye ? 🎰 Laisse le sort décider !" />
+  <meta property="og:description"
+    content="L'app qui désigne le payeur en un clic. Ajoute tes amis et lance le tirage au sort ! Disponible en français, arabe, anglais, italien et espagnol." />
+  <meta property="og:image" content="https://www.sahelmahel.com/img/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Qui paye ? - Application de tirage au sort" />
+  <meta property="og:site_name" content="SahelMahel" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale:alternate" content="ar_DZ" />
+  <meta property="og:locale:alternate" content="en_GB" />
+
+  <!-- ═══════════════════ TWITTER CARD ═══════════════════ -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://www.sahelmahel.com/" />
+  <meta name="twitter:title" content="Qui paye ? 🎰 Tirage au sort entre amis" />
+  <meta name="twitter:description"
+    content="Laisse le sort décider qui paye ! App gratuite, multilingue, utilisable partout." />
+  <meta name="twitter:image" content="https://www.sahelmahel.com/img/og-preview.png" />
+  <meta name="twitter:image:alt" content="Qui paye ? - Application de tirage au sort" />
+
+  <!-- ═══════════════════ PWA & MOBILE ═══════════════════ -->
+  <meta name="theme-color" content="#7c3aed" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Qui paye ?" />
+  <link rel="apple-touch-icon" href="./img/apple-touch-icon.png" />
+
+  <!-- ═══════════════════ FAVICON ═══════════════════ -->
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./img/favicon-16x16.png" />
+
+  <!-- ═══════════════════ SCHEMA.ORG JSON-LD ═══════════════════ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Qui paye ?",
+    "description": "Application de tirage au sort pour désigner qui paye parmi un groupe d'amis. Multilingue : français, arabe, anglais, italien, espagnol, tamazight.",
+    "url": "https://www.sahelmahel.com/",
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "inLanguage": ["fr", "ar", "en", "it", "es", "tzm"],
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "SahelMahel",
+      "url": "https://www.sahelmahel.com"
+    },
+    "image": "https://www.sahelmahel.com/img/og-preview.png",
+    "screenshot": "https://www.sahelmahel.com/img/og-preview.png",
+    "featureList": [
+      "Tirage au sort aléatoire",
+      "Multilingue (FR, AR, EN, IT, ES, TZM)",
+      "Mode sombre / clair",
+      "Historique des tirages",
+      "Partage par QR Code et lien",
+      "Effets sonores et confettis"
+    ]
+  }
+  </script>
   <title>Qui paye ?</title>
   <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1071,7 +1153,7 @@
           <div className="flex items-start justify-between gap-3">
             <div className="header-title">
               <h1
-                className={`font-black plain-text tracking-tight ${lang === 'ES' || lang === 'TZM' ? 'text-2xl' : 'text-3xl'} whitespace-nowrap`}
+                className={`font-black plain-text tracking-tight ${lang === 'ES' || lang === 'TZM' ? 'text-2xl mt-[7px]' : 'text-3xl'} whitespace-nowrap`}
                 style={{ lineHeight: 1.1 }}
               >
                 {t.title}
