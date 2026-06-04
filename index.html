@@ -1434,7 +1434,7 @@
 
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
-  <!-- ═══ AXEPTIO (code officiel copié depuis ton dashboard) ═══ -->
+ <!-- ═══ AXEPTIO — configuration ═══ -->
   <script>
     window.axeptioSettings = {
       clientId: "6a2143507302269a0de7bbfe",
@@ -1457,10 +1457,43 @@
     })(document, "script");
   </script>
 
-  <!-- ═══ LIAISON AXEPTIO → GA4 ═══ -->
+  <!-- ═══ AXEPTIO — logique (masquage + GA4) ═══ -->
   <script>
     window._axcb = window._axcb || [];
     window._axcb.push(function (sdk) {
+
+      function hideAxeptioWidget() {
+        var selectors = [
+          '#axeptio_overlay',
+          '#axeptio_widget',
+          '.axeptio_widget',
+          '[id^="axeptio"]',
+          '[class^="axeptio"]'
+        ];
+        selectors.forEach(function (sel) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            el.style.setProperty('display', 'none', 'important');
+          });
+        });
+        localStorage.setItem('axeptio-choice-made', '1');
+      }
+
+      window.openAxeptioCookies = function () {
+        var selectors = [
+          '#axeptio_overlay',
+          '#axeptio_widget',
+          '.axeptio_widget',
+          '[id^="axeptio"]',
+          '[class^="axeptio"]'
+        ];
+        selectors.forEach(function (sel) {
+          document.querySelectorAll(sel).forEach(function (el) {
+            el.style.removeProperty('display');
+          });
+        });
+        sdk.openCookies();
+      };
+
       sdk.on("cookies:complete", function (choices) {
         gtag('consent', 'update', {
           analytics_storage: choices.google_analytics ? 'granted' : 'denied',
@@ -1468,7 +1501,20 @@
           ad_user_data: 'denied',
           ad_personalization: 'denied'
         });
+        setTimeout(hideAxeptioWidget, 800);
       });
+
+      if (localStorage.getItem('axeptio-choice-made') === '1') {
+        var observer = new MutationObserver(function () {
+          var found = document.querySelector('[id^="axeptio"], [class^="axeptio"]');
+          if (found) {
+            hideAxeptioWidget();
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+
     });
   </script>
 </body>
