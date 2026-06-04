@@ -1070,6 +1070,137 @@
       );
     }
 
+    function LegalModal({ type, onClose, theme }) {
+      const year = new Date().getFullYear();
+
+      const contents = {
+        mentions: {
+          title: "Mentions légales",
+          body: (
+            <>
+              <h3>Éditeur du site</h3>
+              <p>Le site <strong>sahelmahel.com</strong> est édité par SahelMahel, Paris, France.</p>
+              <p>Contact : <a href="mailto:contact@sahelmahel.com" style={{ color: '#a855f7' }}>contact@sahelmahel.com</a></p>
+
+              <h3>Hébergement</h3>
+              <p>Ce site est hébergé par un prestataire tiers. Pour toute question relative à l'hébergement, contactez-nous par email.</p>
+
+              <h3>Propriété intellectuelle</h3>
+              <p>L'ensemble des contenus présents sur ce site (textes, images, code) est la propriété exclusive de SahelMahel. Toute reproduction est interdite sans autorisation préalable.</p>
+
+              <h3>Responsabilité</h3>
+              <p>SahelMahel s'efforce d'assurer l'exactitude des informations diffusées sur ce site. Toutefois, nous ne pouvons garantir l'exactitude, la complétude ou l'actualité des informations.</p>
+            </>
+          )
+        },
+        confidentialite: {
+          title: "Politique de confidentialité",
+          body: (
+            <>
+              <h3>Données collectées</h3>
+              <p>Ce site ne collecte <strong>aucune donnée personnelle</strong> identifiable (nom, email, téléphone) directement.</p>
+              <p>Avec votre consentement, nous utilisons <strong>Google Analytics 4</strong> pour mesurer l'audience du site de manière anonymisée (pages visitées, pays, type d'appareil).</p>
+
+              <h3>Cookies</h3>
+              <p>Ce site utilise des cookies techniques nécessaires à son fonctionnement (thème, langue, historique local) et, avec votre consentement, des cookies analytiques via Google Analytics.</p>
+              <p>Vous pouvez retirer votre consentement à tout moment en cliquant sur "🍪 Gérer mes cookies" en bas de page.</p>
+
+              <h3>Durée de conservation</h3>
+              <p>Les données analytiques sont conservées pendant <strong>13 mois</strong> conformément aux recommandations de la CNIL.</p>
+
+              <h3>Vos droits (RGPD)</h3>
+              <p>Conformément au RGPD, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ces droits : <a href="mailto:contact@sahelmahel.com" style={{ color: '#a855f7' }}>contact@sahelmahel.com</a></p>
+
+              <h3>Responsable du traitement</h3>
+              <p>SahelMahel — Paris, France</p>
+            </>
+          )
+        },
+        cgv: {
+          title: "Conditions générales d'utilisation",
+          body: (
+            <>
+              <h3>Accès au service</h3>
+              <p><strong>Qui paye ?</strong> est une application web gratuite permettant d'effectuer des tirages au sort entre plusieurs personnes. L'accès est libre et sans inscription.</p>
+
+              <h3>Utilisation</h3>
+              <p>L'application est fournie "telle quelle", à titre informatif et ludique. SahelMahel ne saurait être tenu responsable de l'usage fait des résultats des tirages au sort.</p>
+
+              <h3>Disponibilité</h3>
+              <p>SahelMahel s'efforce d'assurer la disponibilité du service 24h/24 et 7j/7, sans pouvoir toutefois garantir une disponibilité sans interruption.</p>
+
+              <h3>Propriété intellectuelle</h3>
+              <p>Tous les droits de propriété intellectuelle relatifs à l'application appartiennent à SahelMahel. Toute reproduction ou utilisation commerciale est interdite sans accord préalable.</p>
+
+              <h3>Droit applicable</h3>
+              <p>Les présentes CGU sont soumises au droit français. Tout litige relève de la compétence des tribunaux français.</p>
+
+              <p style={{ opacity: 0.5, fontSize: '11px', marginTop: '16px' }}>Dernière mise à jour : juin {year}</p>
+            </>
+          )
+        }
+      };
+
+      const content = contents[type];
+      if (!content) return null;
+
+      return (
+        <div
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(6px)',
+            display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+            padding: '0'
+          }}
+          onClick={onClose}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            className="glass"
+            style={{
+              width: '100%', maxWidth: '440px',
+              maxHeight: '80vh', overflowY: 'auto',
+              borderRadius: '24px 24px 0 0',
+              padding: '24px 20px 40px',
+              animation: 'fade-slide-in 0.3s ease forwards'
+            }}
+          >
+            {/* Header */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <h2 className="plain-text" style={{ fontSize: '16px', fontWeight: 800, margin: 0 }}>
+                {content.title}
+              </h2>
+              <button
+                onClick={onClose}
+                className="plain-text"
+                style={{ background: 'none', border: 'none', fontSize: '20px', cursor: 'pointer', opacity: 0.6 }}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Body */}
+            <div
+              className="soft"
+              style={{ fontSize: '13px', lineHeight: '1.7' }}
+            >
+              <style>{`
+            .legal-content h3 {
+              font-size: 13px;
+              font-weight: 700;
+              margin: 14px 0 4px;
+              color: #a855f7;
+            }
+            .legal-content p { margin: 0 0 8px; }
+          `}</style>
+              <div className="legal-content">{content.body}</div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     /* ── App ───────────────────────────────────────────────────────────────────── */
 
     function App() {
@@ -1085,6 +1216,7 @@
       const [soundEnabled, setSoundEnabled] = useState(localStorage.getItem('qui-paye-sound') !== 'false');
       const [lang, setLang] = useState(localStorage.getItem('qui-paye-lang') || 'FR');
       const [theme, setTheme] = useState(localStorage.getItem('qui-paye-theme') || 'dark');
+      const [modal, setModal] = useState(null);
       const inputRef = useRef(null);
       const rollRef = useRef(null);
       const t = TEXT[lang];
@@ -1164,7 +1296,7 @@
       };
 
       return (
-        <div className="w-full max-w-sm mx-auto p-4 flex flex-col gap-4" style={{ minHeight: '100vh', paddingTop: '2rem', paddingBottom: '2rem' }} dir={isArabic ? 'rtl' : 'ltr'}>
+        <div className="w-full max-w-sm mx-auto p-4 flex flex-col gap-4" style={{ minHeight: '100vh', paddingTop: '2rem', paddingBottom: '80px' }} dir={isArabic ? 'rtl' : 'ltr'}>
           <div className="flex items-start justify-between gap-3">
             <div className="header-title">
               <h1
@@ -1254,6 +1386,48 @@
           )}
 
           {winner && <span className="sr-only">{t.resultLabel(winner)}</span>}
+          {/* ═══ FOOTER LÉGAL FIXE ═══ */}
+          <div
+            style={{
+              position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 998,
+              padding: "6px 12px 8px", textAlign: "center",
+              backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)",
+              borderTop: "1px solid rgba(168, 85, 247, 0.08)",
+              background: "rgba(0,0,0,0.15)"
+            }}
+            dir="ltr"
+          >
+            <div className="flex flex-wrap justify-center gap-x-3 gap-y-1">
+              {[
+                { label: "Mentions légales", key: "mentions" },
+                { label: "Confidentialité", key: "confidentialite" },
+                { label: "CGU", key: "cgv" },
+              ].map(({ label, key }) => (
+                <button
+                  key={key}
+                  onClick={() => setModal(key)}
+                  className="soft hover:underline"
+                  style={{ fontSize: "10px", opacity: 0.45, background: "none", border: "none", cursor: "pointer", padding: 0 }}
+                >
+                  {label}
+                </button>
+              ))}
+              <span className="soft" style={{ fontSize: "10px", opacity: 0.3 }}>·</span>
+              <button
+                onClick={() => window.openAxeptioCookies && window.openAxeptioCookies()}
+                className="soft hover:underline"
+                style={{ fontSize: "10px", opacity: 0.45, background: "none", border: "none", cursor: "pointer", padding: 0 }}
+              >
+                🍪 Cookies
+              </button>
+            </div>
+            <p className="soft" style={{ fontSize: "9px", opacity: 0.3, marginTop: "2px" }}>
+              © {new Date().getFullYear()} SahelMahel — Tous droits réservés
+            </p>
+          </div>
+
+          {/* ═══ MODAL LÉGAL ═══ */}
+          {modal && <LegalModal type={modal} onClose={() => setModal(null)} theme={theme} />}
         </div>
       );
     }
@@ -1265,6 +1439,7 @@
     window.axeptioSettings = {
       clientId: "6a2143507302269a0de7bbfe",
       cookiesVersion: "ccd772a2-6190-4517-98a6-5df03e8bd3ff",
+      showIcon: false,
       googleConsentMode: {
         default: {
           analytics_storage: "denied",
