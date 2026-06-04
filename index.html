@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Qui paye ?</title>
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -26,38 +28,197 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap');
-    * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; transition: background 0.35s ease, color 0.35s ease; }
-    body.theme-dark { background: #0d0d1a; color: #fff; }
-    body.theme-light { background: linear-gradient(180deg, #f6f3ff 0%, #fff7fb 100%); color: #1f2340; }
 
-    @keyframes slot-roll { 0%,100% { transform: translateY(0); opacity:1; } 25% { transform: translateY(-30px); opacity:0; } 26% { transform: translateY(30px); opacity:0; } 75% { transform: translateY(0); opacity:1; } }
-    @keyframes winner-pop { 0% { transform: scale(0.3) rotate(-10deg); opacity:0; } 60% { transform: scale(1.15) rotate(3deg); opacity:1; } 80% { transform: scale(0.95) rotate(-1deg); } 100% { transform: scale(1) rotate(0deg); opacity:1; } }
-    @keyframes glow-pulse { 0%,100% { box-shadow: 0 0 20px rgba(168,85,247,.35), 0 0 40px rgba(124,58,237,.18); } 50% { box-shadow: 0 0 40px rgba(236,72,153,.42), 0 0 80px rgba(168,85,247,.25), 0 0 120px rgba(124,58,237,.18); } }
-    @keyframes float { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
-    @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-    @keyframes tag-in { 0% { transform: scale(0) rotate(-10deg); opacity:0; } 100% { transform: scale(1) rotate(0deg); opacity:1; } }
-    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
-    @keyframes fade-slide-in { 0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)} }
+    * {
+      font-family: 'Inter', sans-serif;
+      box-sizing: border-box;
+    }
 
-    .winner-pop { animation: winner-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-    .glow-pulse { animation: glow-pulse 1.5s ease-in-out infinite; }
-    .float { animation: float 3s ease-in-out infinite; }
-    .slot-rolling { animation: slot-roll 0.12s linear infinite; }
-    .tag-in { animation: tag-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-    .shake { animation: shake 0.5s ease-in-out; }
-    .fade-slide-in { animation: fade-slide-in 0.4s ease forwards; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.35s ease, color 0.35s ease;
+    }
+
+    body.theme-dark {
+      background: #0d0d1a;
+      color: #fff;
+    }
+
+    body.theme-light {
+      background: linear-gradient(180deg, #f6f3ff 0%, #fff7fb 100%);
+      color: #1f2340;
+    }
+
+    @keyframes slot-roll {
+
+      0%,
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      25% {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+
+      26% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      75% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes winner-pop {
+      0% {
+        transform: scale(0.3) rotate(-10deg);
+        opacity: 0;
+      }
+
+      60% {
+        transform: scale(1.15) rotate(3deg);
+        opacity: 1;
+      }
+
+      80% {
+        transform: scale(0.95) rotate(-1deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes glow-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(168, 85, 247, .35), 0 0 40px rgba(124, 58, 237, .18);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(236, 72, 153, .42), 0 0 80px rgba(168, 85, 247, .25), 0 0 120px rgba(124, 58, 237, .18);
+      }
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% center;
+      }
+
+      100% {
+        background-position: 200% center;
+      }
+    }
+
+    @keyframes tag-in {
+      0% {
+        transform: scale(0) rotate(-10deg);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      20% {
+        transform: translateX(-6px)
+      }
+
+      40% {
+        transform: translateX(6px)
+      }
+
+      60% {
+        transform: translateX(-4px)
+      }
+
+      80% {
+        transform: translateX(4px)
+      }
+    }
+
+    @keyframes fade-slide-in {
+      0% {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .winner-pop {
+      animation: winner-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .glow-pulse {
+      animation: glow-pulse 1.5s ease-in-out infinite;
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .slot-rolling {
+      animation: slot-roll 0.12s linear infinite;
+    }
+
+    .tag-in {
+      animation: tag-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .shake {
+      animation: shake 0.5s ease-in-out;
+    }
+
+    .fade-slide-in {
+      animation: fade-slide-in 0.4s ease forwards;
+    }
 
     .theme-dark .glass {
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
     }
+
     .theme-light .glass {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(14px);
-      border: 1px solid rgba(124,58,237,0.12);
+      border: 1px solid rgba(124, 58, 237, 0.12);
       box-shadow: 0 20px 45px rgba(116, 85, 255, 0.12);
     }
 
@@ -73,64 +234,139 @@
       background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
       background-size: 200% 200%;
       transition: all 0.3s ease;
-      box-shadow: 0 16px 30px rgba(168,85,247,0.22);
+      box-shadow: 0 16px 30px rgba(168, 85, 247, 0.22);
     }
-    .btn-primary:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(168,85,247,0.5); }
-    .btn-primary:active { transform: translateY(0px) scale(0.98); }
+
+    .btn-primary:hover {
+      background-position: right center;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0px) scale(0.98);
+    }
 
     .theme-dark .input-field {
-      background: rgba(255,255,255,0.07);
-      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.07);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
       color: white;
     }
+
     .theme-light .input-field {
-      background: rgba(255,255,255,0.85);
-      border: 1.5px solid rgba(124,58,237,0.12);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1.5px solid rgba(124, 58, 237, 0.12);
       color: #1f2340;
     }
-    .input-field { transition: all 0.2s ease; font-size: 16px !important; }
-    .input-field:focus { outline:none; border-color: #a855f7; box-shadow: 0 0 0 3px rgba(168,85,247,0.2); }
-    .theme-dark .input-field::placeholder { color: rgba(255,255,255,0.35); }
-    .theme-light .input-field::placeholder { color: rgba(31,35,64,0.35); }
+
+    .input-field {
+      transition: all 0.2s ease;
+      font-size: 16px !important;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: #a855f7;
+      box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+    }
+
+    .theme-dark .input-field::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .theme-light .input-field::placeholder {
+      color: rgba(31, 35, 64, 0.35);
+    }
 
     .theme-dark .slot-display {
-      background: linear-gradient(135deg, rgba(124,58,237,0.15), rgba(236,72,153,0.15));
-      border: 2px solid rgba(168,85,247,0.3);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(236, 72, 153, 0.15));
+      border: 2px solid rgba(168, 85, 247, 0.3);
     }
+
     .theme-light .slot-display {
-      background: linear-gradient(135deg, rgba(124,58,237,0.09), rgba(236,72,153,0.08));
-      border: 2px solid rgba(168,85,247,0.16);
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.09), rgba(236, 72, 153, 0.08));
+      border: 2px solid rgba(168, 85, 247, 0.16);
     }
+
     .slot-display {
       position: relative;
       overflow: hidden;
       transition: background .35s ease, border-color .35s ease;
     }
+
     .theme-dark .slot-display::before {
       content: '';
-      position: absolute; top:0; left:0; right:0; bottom:0;
-      background: linear-gradient(to bottom, rgba(13,13,26,0.8) 0%, transparent 30%, transparent 70%, rgba(13,13,26,0.8) 100%);
-      z-index: 2; pointer-events: none;
-    }
-    .theme-light .slot-display::before {
-      content: '';
-      position: absolute; top:0; left:0; right:0; bottom:0;
-      background: linear-gradient(to bottom, rgba(246,243,255,0.85) 0%, transparent 30%, transparent 70%, rgba(255,247,251,0.9) 100%);
-      z-index: 2; pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(13, 13, 26, 0.8) 0%, transparent 30%, transparent 70%, rgba(13, 13, 26, 0.8) 100%);
+      z-index: 2;
+      pointer-events: none;
     }
 
-    .theme-dark .muted { color: rgba(196,181,253,0.72); }
-    .theme-light .muted { color: rgba(91,58,170,0.76); }
-    .theme-dark .soft { color: rgba(255,255,255,0.5); }
-    .theme-light .soft { color: rgba(31,35,64,0.55); }
-    .theme-dark .title-soft { color: rgba(196,181,253,0.9); }
-    .theme-light .title-soft { color: rgba(91,58,170,0.9); }
-    .theme-dark .plain-text { color: white; }
-    .theme-light .plain-text { color: #1f2340; }
-    .theme-dark .chip-text { color: #e9ddff; }
-    .theme-light .chip-text { color: #5128a7; }
-    .theme-dark .subtle-bg { background: rgba(168,85,247,0.08); border: 1px solid rgba(168,85,247,0.15); }
-    .theme-light .subtle-bg { background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.1); }
+    .theme-light .slot-display::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(246, 243, 255, 0.85) 0%, transparent 30%, transparent 70%, rgba(255, 247, 251, 0.9) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .theme-dark .muted {
+      color: rgba(196, 181, 253, 0.72);
+    }
+
+    .theme-light .muted {
+      color: rgba(91, 58, 170, 0.76);
+    }
+
+    .theme-dark .soft {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .theme-light .soft {
+      color: rgba(31, 35, 64, 0.55);
+    }
+
+    .theme-dark .title-soft {
+      color: rgba(196, 181, 253, 0.9);
+    }
+
+    .theme-light .title-soft {
+      color: rgba(91, 58, 170, 0.9);
+    }
+
+    .theme-dark .plain-text {
+      color: white;
+    }
+
+    .theme-light .plain-text {
+      color: #1f2340;
+    }
+
+    .theme-dark .chip-text {
+      color: #e9ddff;
+    }
+
+    .theme-light .chip-text {
+      color: #5128a7;
+    }
+
+    .theme-dark .subtle-bg {
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.15);
+    }
+
+    .theme-light .subtle-bg {
+      background: rgba(124, 58, 237, 0.06);
+      border: 1px solid rgba(124, 58, 237, 0.1);
+    }
 
     .icon-btn {
       width: 40px;
@@ -142,7 +378,11 @@
       transition: all .25s ease;
       position: relative;
     }
-    .icon-btn:hover { transform: translateY(-1px); }
+
+    .icon-btn:hover {
+      transform: translateY(-1px);
+    }
+
     .lang-menu {
       position: absolute;
       top: calc(100% + 8px);
@@ -154,8 +394,19 @@
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
     }
-    .theme-light .lang-menu { background: rgba(255,255,255,0.92); border: 1px solid rgba(124,58,237,0.12); box-shadow: 0 18px 40px rgba(116, 85, 255, 0.16); }
-    .theme-dark .lang-menu { background: rgba(20,20,36,0.96); border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4); }
+
+    .theme-light .lang-menu {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(124, 58, 237, 0.12);
+      box-shadow: 0 18px 40px rgba(116, 85, 255, 0.16);
+    }
+
+    .theme-dark .lang-menu {
+      background: rgba(20, 20, 36, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+    }
+
     .lang-option {
       width: 100%;
       display: flex;
@@ -169,623 +420,699 @@
       background: none;
       border: none;
     }
-    .lang-option:hover { background: rgba(168,85,247,0.12); }
-    .lang-option.active { background: linear-gradient(135deg, rgba(124,58,237,0.18), rgba(236,72,153,0.16)); }
 
-    [lang="ar"] * { font-family: 'Cairo', sans-serif !important; }
+    .lang-option:hover {
+      background: rgba(168, 85, 247, 0.12);
+    }
 
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
-    ::-webkit-scrollbar-thumb { background: rgba(168,85,247,0.5); border-radius: 2px; }
+    .lang-option.active {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.18), rgba(236, 72, 153, 0.16));
+    }
 
-    /* ── Tailles fixes pour stabilité multilingue ── */
-    .glass-card { min-height: 192px; }
-    .slot-display { min-height: 172px !important; }
-    .header-title { min-width: 155px; }
-    .cta-btn { min-height: 60px; }
-    .qr-share-btn { min-height: 48px; }
-    .history-card { min-height: 48px; }
+    [lang="ar"] * {
+      font-family: 'Cairo', sans-serif !important;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(168, 85, 247, 0.5);
+      border-radius: 2px;
+    }
+
+    .glass-card {
+      min-height: 192px;
+    }
+
+    .slot-display {
+      min-height: 172px !important;
+    }
+
+    .header-title {
+      min-width: 155px;
+    }
+
+    .cta-btn {
+      min-height: 60px;
+    }
+
+    .qr-share-btn {
+      min-height: 48px;
+    }
+
+    .history-card {
+      min-height: 48px;
+    }
   </style>
 </head>
+
 <body class="theme-dark">
-<div id="root"></div>
-<script type="text/babel">
-const { useState, useRef, useEffect, useCallback, useMemo } = React;
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useRef, useEffect, useCallback, useMemo } = React;
 
-const EMOJIS = ["🎉","🎊","🍕","🎲","💸","🃏","🎰","🍾","🔥","⚡","💫","🌟","🎯","🎸"];
-const AVATARS = ["🐱","🐶","🦊","🐻","🐼","🦁","🐯","🦄","🐸","🐺","🦋","🦉"];
+    const EMOJIS = ["🎉", "🎊", "🍕", "🎲", "💸", "🃏", "🎰", "🍾", "🔥", "⚡", "💫", "🌟", "🎯", "🎸"];
+    const AVATARS = ["🐱", "🐶", "🦊", "🐻", "🐼", "🦁", "🐯", "🦄", "🐸", "🐺", "🦋", "🦉"];
 
-/* ── SVG Flags ─────────────────────────────────────────────────────────────── */
+    /* ── SVG Flags ─────────────────────────────────────────────────────────────── */
 
-function FlagFR({ size = 28 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
-      style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
-      <defs><clipPath id="c-fr"><circle cx="14" cy="14" r="14"/></clipPath></defs>
-      <g clipPath="url(#c-fr)">
-        <rect x="0"     y="0" width="9.34" height="28" fill="#002395"/>
-        <rect x="9.33"  y="0" width="9.34" height="28" fill="#EDEDED"/>
-        <rect x="18.66" y="0" width="9.34" height="28" fill="#ED2939"/>
-      </g>
-    </svg>
-  );
-}
-
-function FlagDZ({ size = 28 }) {
-  /* Étoile à 5 branches : 10 sommets calculés trigonométriquement */
-  const cx = 16.2, cy = 14, R = 3.7, r = 1.48;
-  const pts = Array.from({ length: 10 }, (_, i) => {
-    const angle = (Math.PI / 5) * i - Math.PI / 2;
-    const radius = i % 2 === 0 ? R : r;
-    return `${(cx + radius * Math.cos(angle)).toFixed(3)},${(cy + radius * Math.sin(angle)).toFixed(3)}`;
-  }).join(' ');
-
-  return (
-    <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
-      style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
-      <defs><clipPath id="c-dz"><circle cx="14" cy="14" r="14"/></clipPath></defs>
-      <g clipPath="url(#c-dz)">
-        <rect x="0"  y="0" width="14" height="28" fill="#006233"/>
-        <rect x="14" y="0" width="14" height="28" fill="#FFFFFF"/>
-        {/* Croissant */}
-        <circle cx="15.0" cy="14" r="5.4" fill="#D21034"/>
-        <circle cx="16.7" cy="14" r="4.4" fill="#FFFFFF"/>
-        {/* Étoile */}
-        <polygon points={pts} fill="#D21034"/>
-      </g>
-    </svg>
-  );
-}
-
-function FlagGB({ size = 28 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
-      style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
-      <defs><clipPath id="c-gb"><circle cx="14" cy="14" r="14"/></clipPath></defs>
-      <g clipPath="url(#c-gb)">
-        <rect width="28" height="28" fill="#012169"/>
-        <line x1="0" y1="0" x2="28" y2="28" stroke="#FFFFFF" strokeWidth="5.6"/>
-        <line x1="28" y1="0" x2="0" y2="28" stroke="#FFFFFF" strokeWidth="5.6"/>
-        <line x1="0" y1="0" x2="28" y2="28" stroke="#C8102E" strokeWidth="3.2"/>
-        <line x1="28" y1="0" x2="0" y2="28" stroke="#C8102E" strokeWidth="3.2"/>
-        <rect x="11.2" y="0" width="5.6" height="28" fill="#FFFFFF"/>
-        <rect x="0" y="11.2" width="28" height="5.6" fill="#FFFFFF"/>
-        <rect x="12.4" y="0" width="3.2" height="28" fill="#C8102E"/>
-        <rect x="0" y="12.4" width="28" height="3.2" fill="#C8102E"/>
-      </g>
-    </svg>
-  );
-}
-
-/* ── Drapeau Italie SVG ─────────────────────────────────────────────────────── */
-
-function FlagIT({ size = 28 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
-      style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
-      <defs><clipPath id="c-it"><circle cx="14" cy="14" r="14"/></clipPath></defs>
-      <g clipPath="url(#c-it)">
-        <rect x="0"     y="0" width="9.34" height="28" fill="#009246"/>
-        <rect x="9.33"  y="0" width="9.34" height="28" fill="#F4F9FF"/>
-        <rect x="18.66" y="0" width="9.34" height="28" fill="#CE2B37"/>
-      </g>
-    </svg>
-  );
-}
-
-/* ── Lang options ──────────────────────────────────────────────────────────── */
-
-const LANG_OPTIONS = [
-  { key: 'FR', FlagComponent: FlagFR, label: 'Français' },
-  { key: 'AR', FlagComponent: FlagDZ, label: 'العربية'  },
-  { key: 'EN', FlagComponent: FlagGB, label: 'English'  },
-  { key: 'IT', FlagComponent: FlagIT, label: 'Italiano' },
-];
-
-/* ── Translations ──────────────────────────────────────────────────────────── */
-
-const TEXT = {
-  FR: {
-    title: "Qui paye ?",
-    subtitle: "Le sort en décide !",
-    addFriends: "Ajouter des amis",
-    placeholder: "Prénom du gourmand...",
-    helper: "Ajoute au moins 2 personnes pour commencer 👆",
-    drawing: "Tirage en cours...",
-    cta: "TIRER AU SORT !",
-    winner: "🎉 C'est lui/elle qui paye !",
-    replay: "🔄 Rejouer",
-    copy: "📋 Copier",
-    history: "Historique des tirages",
-    emptyHistory: "Aucun tirage pour l'instant...",
-    historyTitle: "Historique",
-    languageTitle: "Langue",
-    themeTitle: "Thème",
-    qrcode: "QR Code",
-    share: "Partager",
-    shareText: `🎰 Découvre l'appli qui désigne le payeur en un clic 👉`,
-    shareFallback: "Lien copié ! Colle-le où tu veux 😄",
-    copyText: (name) => `${name} doit payer ! 💸`,
-    resultLabel: (name) => `${name} a été tiré au sort`
-  },
-  EN: {
-    title: "Who pays?",
-    subtitle: "Let fate decide!",
-    addFriends: "Add friends",
-    placeholder: "Type a name...",
-    helper: "Add at least 2 people to start 👆",
-    drawing: "Drawing...",
-    cta: "SPIN THE DRAW!",
-    winner: "🎉 This person has to pay!",
-    replay: "🔄 Play again",
-    copy: "📋 Copy",
-    history: "Draw history",
-    emptyHistory: "No draws yet...",
-    historyTitle: "History",
-    languageTitle: "Language",
-    themeTitle: "Theme",
-    qrcode: "QR Code",
-    share: "Share",
-    shareText: `🎰 Discover the app that picks who pays in one click 👉`,
-    shareFallback: "Link copied! Paste it anywhere 😄",
-    copyText: (name) => `${name} has to pay! 💸`,
-    resultLabel: (name) => `${name} was selected`
-  },
-  AR: {
-    title: "من يدفع؟",
-    subtitle: "خلّي الحظ يختار!",
-    addFriends: "أضف الأصدقاء",
-    placeholder: "اكتب الاسم...",
-    helper: "أضف شخصين على الأقل للبدء 👆",
-    drawing: "جارٍ السحب...",
-    cta: "ابدأ السحب!",
-    winner: "🎉 هذا الشخص سيدفع!",
-    replay: "🔄 إعادة",
-    copy: "📋 نسخ",
-    history: "سجل السحوبات",
-    emptyHistory: "لا توجد سحوبات بعد...",
-    historyTitle: "السجل",
-    languageTitle: "اللغة",
-    themeTitle: "المظهر",
-    qrcode: "QR Code",
-    share: "مشاركة",
-    shareText: `🎰 اكتشف التطبيق الذي يختار من يدفع بنقرة واحدة 👉`,
-    shareFallback: "تم نسخ الرابط! الصقه أينما تريد 😄",
-    copyText: (name) => `💸 ${name} سيدفع!`,
-    resultLabel: (name) => `تم اختيار ${name}`
-  },
-  IT: {
-    title: "Chi paga?",
-    subtitle: "Lascia decidere al destino!",
-    addFriends: "Aggiungi amici",
-    placeholder: "Nome del goloso...",
-    helper: "Aggiungi almeno 2 persone per iniziare 👆",
-    drawing: "Estrazione in corso...",
-    cta: "ESTRAI!",
-    winner: "🎉 Questa persona paga!",
-    replay: "🔄 Riprova",
-    copy: "📋 Copia",
-    history: "Cronologia estrazioni",
-    emptyHistory: "Nessuna estrazione ancora...",
-    historyTitle: "Cronologia",
-    languageTitle: "Lingua",
-    themeTitle: "Tema",
-    qrcode: "QR Code",
-    share: "Condividi",
-    shareText: `🎰 Scopri l'app che sceglie chi paga con un clic 👉`,
-    shareFallback: "Link copiato! Incollalo dove vuoi 😄",
-    copyText: (name) => `${name} deve pagare! 💸`,
-    resultLabel: (name) => `${name} è stato estratto`
-  }
-};
-
-/* ── Audio ─────────────────────────────────────────────────────────────────── */
-
-function createAudioContext() {
-  return new (window.AudioContext || window.webkitAudioContext)();
-}
-
-function playDrumRoll(duration = 2800) {
-  const ctx = createAudioContext();
-  const gainNode = ctx.createGain();
-  gainNode.connect(ctx.destination);
-  let time = ctx.currentTime;
-  const totalBeats = Math.floor(duration / 80);
-  for (let i = 0; i < totalBeats; i++) {
-    const progress = i / totalBeats;
-    const interval = 0.08 * (1 + progress * 1.5);
-    const bufferSize = ctx.sampleRate * 0.04;
-    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let j = 0; j < bufferSize; j++) {
-      data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.15));
+    function FlagFR({ size = 20 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
+          style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
+          <defs><clipPath id="c-fr"><circle cx="14" cy="14" r="14" /></clipPath></defs>
+          <g clipPath="url(#c-fr)">
+            <rect x="0" y="0" width="9.34" height="28" fill="#002395" />
+            <rect x="9.33" y="0" width="9.34" height="28" fill="#EDEDED" />
+            <rect x="18.66" y="0" width="9.34" height="28" fill="#ED2939" />
+          </g>
+        </svg>
+      );
     }
-    const source = ctx.createBufferSource();
-    source.buffer = buffer;
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'bandpass';
-    filter.frequency.value = 180 + Math.random() * 40;
-    filter.Q.value = 0.8;
-    source.connect(filter);
-    filter.connect(gainNode);
-    gainNode.gain.setValueAtTime(0.35, time);
-    source.start(time);
-    time += interval * (1 - progress * 0.4);
-  }
-  return ctx;
-}
 
-function playVictorySound() {
-  const ctx = createAudioContext();
-  const master = ctx.createGain();
-  master.gain.setValueAtTime(0.55, ctx.currentTime);
-  master.connect(ctx.destination);
-
-  const pingFreqs = [880, 1100, 1320, 1760];
-  pingFreqs.forEach((freq, i) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(freq * 0.5, ctx.currentTime + i * 0.06);
-    osc.frequency.exponentialRampToValueAtTime(freq, ctx.currentTime + i * 0.06 + 0.08);
-    gain.gain.setValueAtTime(0.35, ctx.currentTime + i * 0.06);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.55);
-    osc.connect(gain); gain.connect(master);
-    osc.start(ctx.currentTime + i * 0.06);
-    osc.stop(ctx.currentTime + i * 0.06 + 0.6);
-  });
-
-  const kick = ctx.createOscillator();
-  const kickGain = ctx.createGain();
-  kick.type = 'sine';
-  kick.frequency.setValueAtTime(160, ctx.currentTime);
-  kick.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.18);
-  kickGain.gain.setValueAtTime(0.7, ctx.currentTime);
-  kickGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
-  kick.connect(kickGain); kickGain.connect(master);
-  kick.start(ctx.currentTime); kick.stop(ctx.currentTime + 0.25);
-
-  for (let i = 0; i < 6; i++) {
-    const bufSize = ctx.sampleRate * 0.06;
-    const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let j = 0; j < bufSize; j++) d[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufSize * 0.12));
-    const src = ctx.createBufferSource();
-    src.buffer = buf;
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'highpass'; filter.frequency.value = 3000 + Math.random() * 2000;
-    const g = ctx.createGain();
-    g.gain.setValueAtTime(0.22 + Math.random() * 0.15, ctx.currentTime);
-    src.connect(filter); filter.connect(g); g.connect(master);
-    src.start(ctx.currentTime + 0.05 + i * 0.09 + Math.random() * 0.04);
-  }
-
-  const chordFreqs = [523, 659, 784];
-  chordFreqs.forEach((freq) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = 'sawtooth';
-    const filter = ctx.createBiquadFilter();
-    filter.type = 'lowpass'; filter.frequency.value = 1200;
-    osc.frequency.setValueAtTime(freq, ctx.currentTime + 0.28);
-    gain.gain.setValueAtTime(0, ctx.currentTime + 0.28);
-    gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.35);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
-    osc.connect(filter); filter.connect(gain); gain.connect(master);
-    osc.start(ctx.currentTime + 0.28);
-    osc.stop(ctx.currentTime + 1.0);
-  });
-}
-
-async function shareLink(shareText, fallbackMsg) {
-  const url = 'https://www.sahelmahel.com/';
-  try {
-    if (navigator.share) {
-      await navigator.share({ title: 'Qui paye ?', text: shareText, url });
-    } else {
-      await navigator.clipboard.writeText(shareText + '\n' + url);
-      alert(fallbackMsg);
+    function FlagDZ({ size = 20 }) {
+      const cx = 16.2, cy = 14, R = 3.7, r = 1.48;
+      const pts = Array.from({ length: 10 }, (_, i) => {
+        const angle = (Math.PI / 5) * i - Math.PI / 2;
+        const radius = i % 2 === 0 ? R : r;
+        return `${(cx + radius * Math.cos(angle)).toFixed(3)},${(cy + radius * Math.sin(angle)).toFixed(3)}`;
+      }).join(' ');
+      return (
+        <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
+          style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
+          <defs><clipPath id="c-dz"><circle cx="14" cy="14" r="14" /></clipPath></defs>
+          <g clipPath="url(#c-dz)">
+            <rect x="0" y="0" width="14" height="28" fill="#006233" />
+            <rect x="14" y="0" width="14" height="28" fill="#FFFFFF" />
+            <circle cx="15.0" cy="14" r="5.4" fill="#D21034" />
+            <circle cx="16.7" cy="14" r="4.4" fill="#FFFFFF" />
+            <polygon points={pts} fill="#D21034" />
+          </g>
+        </svg>
+      );
     }
-  } catch(e) {
-    if (e.name !== 'AbortError') {
-      await navigator.clipboard.writeText(shareText + '\n' + url);
-      alert(fallbackMsg);
+
+    function FlagGB({ size = 20 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
+          style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
+          <defs><clipPath id="c-gb"><circle cx="14" cy="14" r="14" /></clipPath></defs>
+          <g clipPath="url(#c-gb)">
+            <rect width="28" height="28" fill="#012169" />
+            <line x1="0" y1="0" x2="28" y2="28" stroke="#FFFFFF" strokeWidth="5.6" />
+            <line x1="28" y1="0" x2="0" y2="28" stroke="#FFFFFF" strokeWidth="5.6" />
+            <line x1="0" y1="0" x2="28" y2="28" stroke="#C8102E" strokeWidth="3.2" />
+            <line x1="28" y1="0" x2="0" y2="28" stroke="#C8102E" strokeWidth="3.2" />
+            <rect x="11.2" y="0" width="5.6" height="28" fill="#FFFFFF" />
+            <rect x="0" y="11.2" width="28" height="5.6" fill="#FFFFFF" />
+            <rect x="12.4" y="0" width="3.2" height="28" fill="#C8102E" />
+            <rect x="0" y="12.4" width="28" height="3.2" fill="#C8102E" />
+          </g>
+        </svg>
+      );
     }
-  }
-}
 
-/* ── Helpers ───────────────────────────────────────────────────────────────── */
-
-function getAvatar(name) {
-  let hash = 0;
-  for (let c of name) hash = (hash * 31 + c.charCodeAt(0)) % AVATARS.length;
-  return AVATARS[hash];
-}
-
-function launchConfetti(theme) {
-  const colors = theme === 'dark'
-    ? ['#a855f7','#ec4899','#7c3aed','#f97316','#fbbf24','#34d399']
-    : ['#8b5cf6','#ec4899','#fb7185','#f59e0b','#22c55e','#38bdf8'];
-  const opts = { particleCount: 120, spread: 80, origin: { y: 0.6 }, colors };
-  confetti({ ...opts, angle: 60, origin: { x: 0, y: 0.7 } });
-  setTimeout(() => confetti({ ...opts, angle: 120, origin: { x: 1, y: 0.7 } }), 200);
-  setTimeout(() => confetti({ ...opts, particleCount: 60, origin: { x: 0.5, y: 0.5 } }), 400);
-}
-
-/* ── Components ────────────────────────────────────────────────────────────── */
-
-function Tag({ name, onRemove }) {
-  return (
-    <span className="tag-in inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold subtle-bg chip-text">
-      <span>{getAvatar(name)}</span>
-      <span>{name}</span>
-      <button onClick={() => onRemove(name)} className="ml-1 w-4 h-4 rounded-full flex items-center justify-center hover:text-white hover:bg-purple-500 transition-all text-xs font-bold">×</button>
-    </span>
-  );
-}
-
-function SlotDisplay({ phase, currentName, winner, t, isArabic }) {
-  if (phase === 'idle') return (
-    <div className="slot-display rounded-2xl p-8 flex flex-col items-center justify-center min-h-[120px]">
-      <span className="text-5xl font-black soft tracking-widest select-none">???</span>
-    </div>
-  );
-  if (phase === 'rolling') return (
-    <div className="slot-display rounded-2xl p-8 flex flex-col items-center justify-center min-h-[120px]">
-      <div className="slot-rolling text-3xl font-black title-soft select-none overflow-hidden" style={{height:'48px', lineHeight:'48px'}}>{currentName}</div>
-      <p className="mt-3 muted text-sm animate-pulse">{t.drawing}</p>
-    </div>
-  );
-  if (phase === 'winner') return (
-    <div className="slot-display rounded-2xl p-8 flex flex-col items-center justify-center min-h-[120px] glow-pulse">
-      <div className="winner-pop float text-center" dir={isArabic ? 'rtl' : 'ltr'}>
-        <div className="text-5xl mb-2">{getAvatar(winner)}</div>
-        <div className="winner-text text-4xl font-black">{winner}</div>
-        <p className="mt-2 muted text-sm font-semibold">{t.winner}</p>
-      </div>
-    </div>
-  );
-}
-
-function HeaderActions({ showHistory, setShowHistory, t, lang, setLang, theme, setTheme, isArabic, soundEnabled, setSoundEnabled }) {
-  const [open, setOpen] = useState(false);
-  const menuRef = useRef(null);
-  const currentLang = LANG_OPTIONS.find(item => item.key === lang) || LANG_OPTIONS[0];
-  const CurrentFlag = currentLang.FlagComponent;
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (menuRef.current && !menuRef.current.contains(event.target)) setOpen(false);
+    function FlagIT({ size = 20 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
+          style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
+          <defs><clipPath id="c-it"><circle cx="14" cy="14" r="14" /></clipPath></defs>
+          <g clipPath="url(#c-it)">
+            <rect x="0" y="0" width="9.34" height="28" fill="#009246" />
+            <rect x="9.33" y="0" width="9.34" height="28" fill="#F4F9FF" />
+            <rect x="18.66" y="0" width="9.34" height="28" fill="#CE2B37" />
+          </g>
+        </svg>
+      );
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
-  return (
-    <div className={`flex gap-2 items-center ${isArabic ? "flex-row-reverse" : ""}`} dir="ltr">
-      <button onClick={() => setSoundEnabled(v => !v)} className="icon-btn glass plain-text hover:bg-white/10 text-lg" title={soundEnabled ? "Son activé" : "Son désactivé"}>
-        <span aria-hidden="true">{soundEnabled ? '🔊' : '🔇'}</span>
-      </button>
-      <button onClick={() => setShowHistory(prev => !prev)} className="icon-btn glass plain-text hover:bg-white/10 text-sm" title={t.historyTitle}>🕐</button>
+    /* ── Drapeau Espagne SVG (rouge / jaune / rouge, ratio 3:2) ─────────────────── */
+    function FlagES({ size = 20 }) {
+      return (
+        <svg width={size} height={size} viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg"
+          style={{ borderRadius: '50%', display: 'block', flexShrink: 0 }}>
+          <defs><clipPath id="c-es"><circle cx="14" cy="14" r="14" /></clipPath></defs>
+          <g clipPath="url(#c-es)">
+            {/* Bande rouge supérieure */}
+            <rect x="0" y="0" width="28" height="7" fill="#AA151B" />
+            {/* Bande jaune centrale */}
+            <rect x="0" y="7" width="28" height="14" fill="#F1BF00" />
+            {/* Bande rouge inférieure */}
+            <rect x="0" y="21" width="28" height="7" fill="#AA151B" />
+          </g>
+        </svg>
+      );
+    }
 
-      <div className="relative" ref={menuRef}>
-        <button
-          onClick={() => setOpen(v => !v)}
-          className="icon-btn glass plain-text hover:bg-white/10"
-          title={t.languageTitle}
-          style={{ padding: '6px' }}>
-          <CurrentFlag size={26} />
-        </button>
-        {open && (
-          <div className="lang-menu">
-            {LANG_OPTIONS.map((option) => {
-              const Flag = option.FlagComponent;
-              return (
-                <button
-                  key={option.key}
-                  onClick={() => { setLang(option.key); setOpen(false); }}
-                  title={option.label}
-                  className={`lang-option ${lang === option.key ? 'active' : ''} plain-text`}
-                  style={{ justifyContent: 'center', padding: '10px 8px' }}>
-                  <Flag size={28} />
-                </button>
-              );
-            })}
-          </div>
-        )}
-      </div>
+    /* ── Lang options ──────────────────────────────────────────────────────────── */
 
-      <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="icon-btn glass plain-text hover:bg-white/10 text-lg" title={t.themeTitle}>
-        <span aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
-      </button>
-    </div>
-  );
-}
+    const LANG_OPTIONS = [
+      { key: 'FR', FlagComponent: FlagFR, label: 'Français' },
+      { key: 'AR', FlagComponent: FlagDZ, label: 'العربية' },
+      { key: 'EN', FlagComponent: FlagGB, label: 'English' },
+      { key: 'IT', FlagComponent: FlagIT, label: 'Italiano' },
+      { key: 'ES', FlagComponent: FlagES, label: 'Español' },
+    ];
 
-/* ── App ───────────────────────────────────────────────────────────────────── */
+    /* ── Translations ──────────────────────────────────────────────────────────── */
 
-function App() {
-  const [input, setInput] = useState('');
-  const [names, setNames] = useState([]);
-  const [phase, setPhase] = useState('idle');
-  const [currentName, setCurrentName] = useState('');
-  const [winner, setWinner] = useState('');
-  const [sharing, setSharing] = useState(false);
-  const [history, setHistory] = useState([]);
-  const [showHistory, setShowHistory] = useState(false);
-  const [shake, setShake] = useState(false);
-  const [soundEnabled, setSoundEnabled] = useState(localStorage.getItem('qui-paye-sound') !== 'false');
-  const [lang, setLang] = useState(localStorage.getItem('qui-paye-lang') || 'FR');
-  const [theme, setTheme] = useState(localStorage.getItem('qui-paye-theme') || 'dark');
-  const inputRef = useRef(null);
-  const rollRef = useRef(null);
-  const t = TEXT[lang];
-  const isArabic = lang === 'AR';
-
-  useEffect(() => {
-    localStorage.setItem('qui-paye-sound', soundEnabled);
-    document.body.classList.remove('theme-dark', 'theme-light');
-    document.body.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
-    localStorage.setItem('qui-paye-theme', theme);
-  }, [theme, soundEnabled]);
-
-  useEffect(() => {
-    localStorage.setItem('qui-paye-lang', lang);
-    document.documentElement.lang = lang.toLowerCase();
-    document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
-  }, [lang, isArabic]);
-
-  const notifyShake = () => {
-    setShake(true);
-    setTimeout(() => setShake(false), 600);
-  };
-
-  const normalizedNames = useMemo(() => names.map(n => n.toLowerCase()), [names]);
-
-  const addName = useCallback(() => {
-    const trimmed = input.trim();
-    if (!trimmed) return;
-    if (normalizedNames.includes(trimmed.toLowerCase())) { notifyShake(); return; }
-    setNames(prev => [...prev, trimmed]);
-    setInput('');
-    inputRef.current?.focus();
-  }, [input, normalizedNames]);
-
-  const removeName = useCallback((name) => {
-    setNames(prev => prev.filter(n => n !== name));
-    if (winner === name) { setWinner(''); setPhase('idle'); }
-  }, [winner]);
-
-  const handleKey = (e) => { if (e.key === 'Enter') addName(); };
-
-  const draw = useCallback(() => {
-    if (names.length < 2) { notifyShake(); return; }
-    setPhase('rolling');
-    setWinner('');
-    const picked = names[Math.floor(Math.random() * names.length)];
-    if (soundEnabled) { try { playDrumRoll(2800); } catch(e) {} }
-    let elapsed = 0;
-    const totalDuration = 2800;
-    const interval = 80;
-    rollRef.current = setInterval(() => {
-      elapsed += interval;
-      setCurrentName(names[Math.floor(Math.random() * names.length)]);
-      if (elapsed >= totalDuration) {
-        clearInterval(rollRef.current);
-        setCurrentName(picked);
-        setWinner(picked);
-        setPhase('winner');
-        setShowHistory(true);
-        setHistory(prev => [{
-          name: picked,
-          time: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit', second:'2-digit', hour12: false}),
-          emoji: EMOJIS[Math.floor(Math.random()*EMOJIS.length)]
-        }, ...prev.slice(0, 9)]);
-        setTimeout(() => launchConfetti(theme), 100);
-        if (soundEnabled) { try { playVictorySound(); } catch(e) {} }
+    const TEXT = {
+      FR: {
+        title: "Qui paye ?",
+        subtitle: "Le sort en décide !",
+        addFriends: "Ajouter des amis",
+        placeholder: "Prénom du gourmand...",
+        helper: "Ajoute au moins 2 personnes pour commencer 👆",
+        drawing: "Tirage en cours...",
+        cta: "TIRER AU SORT !",
+        winner: "🎉 C'est lui/elle qui paye !",
+        replay: "🔄 Rejouer",
+        copy: "📋 Copier",
+        history: "Historique des tirages",
+        emptyHistory: "Aucun tirage pour l'instant...",
+        historyTitle: "Historique",
+        languageTitle: "Langue",
+        themeTitle: "Thème",
+        qrcode: "QR Code",
+        share: "Partager",
+        shareText: `🎰 Découvre l'appli qui désigne le payeur en un clic 👉`,
+        shareFallback: "Lien copié ! Colle-le où tu veux 😄",
+        copyText: (name) => `${name} doit payer ! 💸`,
+        resultLabel: (name) => `${name} a été tiré au sort`
+      },
+      EN: {
+        title: "Who pays?",
+        subtitle: "Let fate decide!",
+        addFriends: "Add friends",
+        placeholder: "Type a name...",
+        helper: "Add at least 2 people to start 👆",
+        drawing: "Drawing...",
+        cta: "SPIN THE DRAW!",
+        winner: "🎉 This person has to pay!",
+        replay: "🔄 Play again",
+        copy: "📋 Copy",
+        history: "Draw history",
+        emptyHistory: "No draws yet...",
+        historyTitle: "History",
+        languageTitle: "Language",
+        themeTitle: "Theme",
+        qrcode: "QR Code",
+        share: "Share",
+        shareText: `🎰 Discover the app that picks who pays in one click 👉`,
+        shareFallback: "Link copied! Paste it anywhere 😄",
+        copyText: (name) => `${name} has to pay! 💸`,
+        resultLabel: (name) => `${name} was selected`
+      },
+      AR: {
+        title: "من يدفع؟",
+        subtitle: "خلّي الحظ يختار!",
+        addFriends: "أضف الأصدقاء",
+        placeholder: "اكتب الاسم...",
+        helper: "أضف شخصين على الأقل للبدء 👆",
+        drawing: "جارٍ السحب...",
+        cta: "ابدأ السحب!",
+        winner: "🎉 هذا الشخص سيدفع!",
+        replay: "🔄 إعادة",
+        copy: "📋 نسخ",
+        history: "سجل السحوبات",
+        emptyHistory: "لا توجد سحوبات بعد...",
+        historyTitle: "السجل",
+        languageTitle: "اللغة",
+        themeTitle: "المظهر",
+        qrcode: "QR Code",
+        share: "مشاركة",
+        shareText: `🎰 اكتشف التطبيق الذي يختار من يدفع بنقرة واحدة 👉`,
+        shareFallback: "تم نسخ الرابط! الصقه أينما تريد 😄",
+        copyText: (name) => `💸 ${name} سيدفع!`,
+        resultLabel: (name) => `تم اختيار ${name}`
+      },
+      IT: {
+        title: "Chi paga?",
+        subtitle: "Lascia decidere al destino!",
+        addFriends: "Aggiungi amici",
+        placeholder: "Nome del goloso...",
+        helper: "Aggiungi almeno 2 persone per iniziare 👆",
+        drawing: "Estrazione in corso...",
+        cta: "ESTRAI!",
+        winner: "🎉 Questa persona paga!",
+        replay: "🔄 Riprova",
+        copy: "📋 Copia",
+        history: "Cronologia estrazioni",
+        emptyHistory: "Nessuna estrazione ancora...",
+        historyTitle: "Cronologia",
+        languageTitle: "Lingua",
+        themeTitle: "Tema",
+        qrcode: "QR Code",
+        share: "Condividi",
+        shareText: `🎰 Scopri l'app che sceglie chi paga con un clic 👉`,
+        shareFallback: "Link copiato! Incollalo dove vuoi 😄",
+        copyText: (name) => `${name} deve pagare! 💸`,
+        resultLabel: (name) => `${name} è stato estratto`
+      },
+      ES: {
+        title: "¿Quién paga?",
+        subtitle: "¡Que decida el azar!",
+        addFriends: "Añadir amigos",
+        placeholder: "Nombre del goloso...",
+        helper: "Añade al menos 2 personas para empezar 👆",
+        drawing: "Sorteando...",
+        cta: "¡SORTEAR!",
+        winner: "🎉 ¡Esta persona paga!",
+        replay: "🔄 Repetir",
+        copy: "📋 Copiar",
+        history: "Historial de sorteos",
+        emptyHistory: "Aún no hay sorteos...",
+        historyTitle: "Historial",
+        languageTitle: "Idioma",
+        themeTitle: "Tema",
+        qrcode: "QR Code",
+        share: "Compartir",
+        shareText: `🎰 Descubre la app que elige quién paga con un clic 👉`,
+        shareFallback: "¡Enlace copiado! Pégalo donde quieras 😄",
+        copyText: (name) => `¡${name} tiene que pagar! 💸`,
+        resultLabel: (name) => `${name} ha sido seleccionado`
       }
-    }, interval);
-  }, [names, theme, soundEnabled]);
+    };
 
-  useEffect(() => () => clearInterval(rollRef.current), []);
+    /* ── Audio ─────────────────────────────────────────────────────────────────── */
 
-  const handleShare = async () => {
-    setSharing(true);
-    await shareLink(t.shareText, t.shareFallback);
-    setSharing(false);
-  };
+    function createAudioContext() {
+      return new (window.AudioContext || window.webkitAudioContext)();
+    }
 
-  return (
-    <div className="w-full max-w-sm mx-auto p-4 flex flex-col gap-4" style={{minHeight:'100vh', paddingTop:'2rem', paddingBottom:'2rem'}} dir={isArabic ? 'rtl' : 'ltr'}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="header-title">
-          <h1 className="text-3xl font-black plain-text tracking-tight whitespace-nowrap">{t.title}</h1>
-          <p className="muted text-xs mt-0.5">{t.subtitle}</p>
+    function playDrumRoll(duration = 2800) {
+      const ctx = createAudioContext();
+      const gainNode = ctx.createGain();
+      gainNode.connect(ctx.destination);
+      let time = ctx.currentTime;
+      const totalBeats = Math.floor(duration / 80);
+      for (let i = 0; i < totalBeats; i++) {
+        const progress = i / totalBeats;
+        const interval = 0.08 * (1 + progress * 1.5);
+        const bufferSize = ctx.sampleRate * 0.04;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let j = 0; j < bufferSize; j++) {
+          data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.15));
+        }
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 180 + Math.random() * 40;
+        filter.Q.value = 0.8;
+        source.connect(filter);
+        filter.connect(gainNode);
+        gainNode.gain.setValueAtTime(0.35, time);
+        source.start(time);
+        time += interval * (1 - progress * 0.4);
+      }
+      return ctx;
+    }
+
+    function playVictorySound() {
+      const ctx = createAudioContext();
+      const master = ctx.createGain();
+      master.gain.setValueAtTime(0.55, ctx.currentTime);
+      master.connect(ctx.destination);
+
+      const pingFreqs = [880, 1100, 1320, 1760];
+      pingFreqs.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq * 0.5, ctx.currentTime + i * 0.06);
+        osc.frequency.exponentialRampToValueAtTime(freq, ctx.currentTime + i * 0.06 + 0.08);
+        gain.gain.setValueAtTime(0.35, ctx.currentTime + i * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.55);
+        osc.connect(gain); gain.connect(master);
+        osc.start(ctx.currentTime + i * 0.06);
+        osc.stop(ctx.currentTime + i * 0.06 + 0.6);
+      });
+
+      const kick = ctx.createOscillator();
+      const kickGain = ctx.createGain();
+      kick.type = 'sine';
+      kick.frequency.setValueAtTime(160, ctx.currentTime);
+      kick.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.18);
+      kickGain.gain.setValueAtTime(0.7, ctx.currentTime);
+      kickGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
+      kick.connect(kickGain); kickGain.connect(master);
+      kick.start(ctx.currentTime); kick.stop(ctx.currentTime + 0.25);
+
+      for (let i = 0; i < 6; i++) {
+        const bufSize = ctx.sampleRate * 0.06;
+        const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let j = 0; j < bufSize; j++) d[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufSize * 0.12));
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'highpass'; filter.frequency.value = 3000 + Math.random() * 2000;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.22 + Math.random() * 0.15, ctx.currentTime);
+        src.connect(filter); filter.connect(g); g.connect(master);
+        src.start(ctx.currentTime + 0.05 + i * 0.09 + Math.random() * 0.04);
+      }
+
+      const chordFreqs = [523, 659, 784];
+      chordFreqs.forEach((freq) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'lowpass'; filter.frequency.value = 1200;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + 0.28);
+        gain.gain.setValueAtTime(0, ctx.currentTime + 0.28);
+        gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 0.35);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+        osc.connect(filter); filter.connect(gain); gain.connect(master);
+        osc.start(ctx.currentTime + 0.28);
+        osc.stop(ctx.currentTime + 1.0);
+      });
+    }
+
+    async function shareLink(shareText, fallbackMsg) {
+      const url = 'https://www.sahelmahel.com/';
+      try {
+        if (navigator.share) {
+          await navigator.share({ title: 'Qui paye ?', text: shareText, url });
+        } else {
+          await navigator.clipboard.writeText(shareText + '\n' + url);
+          alert(fallbackMsg);
+        }
+      } catch (e) {
+        if (e.name !== 'AbortError') {
+          await navigator.clipboard.writeText(shareText + '\n' + url);
+          alert(fallbackMsg);
+        }
+      }
+    }
+
+    /* ── Helpers ───────────────────────────────────────────────────────────────── */
+
+    function getAvatar(name) {
+      let hash = 0;
+      for (let c of name) hash = (hash * 31 + c.charCodeAt(0)) % AVATARS.length;
+      return AVATARS[hash];
+    }
+
+    function launchConfetti(theme) {
+      const colors = theme === 'dark'
+        ? ['#a855f7', '#ec4899', '#7c3aed', '#f97316', '#fbbf24', '#34d399']
+        : ['#8b5cf6', '#ec4899', '#fb7185', '#f59e0b', '#22c55e', '#38bdf8'];
+      const opts = { particleCount: 120, spread: 80, origin: { y: 0.6 }, colors };
+      confetti({ ...opts, angle: 60, origin: { x: 0, y: 0.7 } });
+      setTimeout(() => confetti({ ...opts, angle: 120, origin: { x: 1, y: 0.7 } }), 200);
+      setTimeout(() => confetti({ ...opts, particleCount: 60, origin: { x: 0.5, y: 0.5 } }), 400);
+    }
+
+    /* ── Components ────────────────────────────────────────────────────────────── */
+
+    function Tag({ name, onRemove }) {
+      return (
+        <span className="tag-in inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-semibold subtle-bg chip-text">
+          <span>{getAvatar(name)}</span>
+          <span>{name}</span>
+          <button onClick={() => onRemove(name)} className="ml-1 w-4 h-4 rounded-full flex items-center justify-center hover:text-white hover:bg-purple-500 transition-all text-xs font-bold">×</button>
+        </span>
+      );
+    }
+
+    function SlotDisplay({ phase, currentName, winner, t, isArabic }) {
+      if (phase === 'idle') return (
+        <div className="slot-display rounded-2xl p-8 flex flex-col items-center justify-center min-h-[120px]">
+          <span className="text-5xl font-black soft tracking-widest select-none">???</span>
         </div>
-        <div dir="ltr"><HeaderActions
-          showHistory={showHistory}
-          setShowHistory={setShowHistory}
-          t={t}
-          lang={lang}
-          setLang={setLang}
-          theme={theme}
-          setTheme={setTheme}
-          isArabic={isArabic}
-          soundEnabled={soundEnabled}
-          setSoundEnabled={setSoundEnabled}
-        /></div>
-      </div>
-
-      <div className="glass glass-card rounded-2xl p-4 flex flex-col gap-3">
-        <p className="title-soft text-xs font-semibold uppercase tracking-widest">{t.addFriends}</p>
-        <div className={`flex gap-2 ${shake ? 'shake' : ''} ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKey}
-            placeholder={t.placeholder}
-            className="input-field flex-1 px-4 py-2.5 rounded-xl text-sm font-medium" />
-          <button onClick={addName}
-            className="btn-primary w-11 h-11 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg"
-            aria-label={t.addFriends}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="12" y1="1" x2="12" y2="5" strokeLinecap="round"/><line x1="10" y1="3" x2="14" y2="3" strokeLinecap="round"/></svg>
-          </button>
+      );
+      if (phase === 'rolling') return (
+        <div className="slot-display rounded-2xl p-8 flex flex-col items-center justify-center min-h-[120px]">
+          <div className="slot-rolling text-3xl font-black title-soft select-none overflow-hidden" style={{ height: '48px', lineHeight: '48px' }}>{currentName}</div>
+          <p className="mt-3 muted text-sm animate-pulse">{t.drawing}</p>
         </div>
-        {names.length > 0 && (
-          <div className={`flex flex-wrap gap-2 pt-1 ${isArabic ? 'justify-end' : ''}`}>
-            {names.map(n => <Tag key={n} name={n} onRemove={removeName} />)}
+      );
+      if (phase === 'winner') return (
+        <div className="slot-display rounded-2xl p-8 flex flex-col items-center justify-center min-h-[120px] glow-pulse">
+          <div className="winner-pop float text-center" dir={isArabic ? 'rtl' : 'ltr'}>
+            <div className="text-5xl mb-2">{getAvatar(winner)}</div>
+            <div className="winner-text text-4xl font-black">{winner}</div>
+            <p className="mt-2 muted text-sm font-semibold">{t.winner}</p>
           </div>
-        )}
-        {names.length < 2 && (
-          <p className="muted text-xs text-center">{t.helper}</p>
-        )}
-      </div>
+        </div>
+      );
+    }
 
-      <SlotDisplay phase={phase} currentName={currentName} winner={winner} t={t} isArabic={isArabic} />
+    function HeaderActions({ showHistory, setShowHistory, t, lang, setLang, theme, setTheme, isArabic, soundEnabled, setSoundEnabled }) {
+      const [open, setOpen] = useState(false);
+      const menuRef = useRef(null);
+      const currentLang = LANG_OPTIONS.find(item => item.key === lang) || LANG_OPTIONS[0];
+      const CurrentFlag = currentLang.FlagComponent;
 
-      <div className="flex flex-col gap-2">
-        <button onClick={draw} disabled={phase === 'rolling'}
-          className="cta-btn btn-primary w-full py-4 rounded-2xl text-white font-black text-lg tracking-wide shadow-xl disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
-          {phase === 'rolling' ? (
-            <><span className="animate-spin text-xl">🎲</span><span>{t.drawing}</span></>
-          ) : (
-            <span>{t.cta}</span>
-          )}
-        </button>
-        <div className={`flex gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
-          <button onClick={() => window.open('QR_code.pdf', '_blank')}
-            className="qr-share-btn flex-1 py-3 rounded-xl title-soft font-semibold text-sm glass hover:bg-purple-500/20 transition-all flex items-center justify-center gap-1.5">
-            <span>📄</span><span>{t.qrcode}</span>
+      useEffect(() => {
+        function handleClickOutside(event) {
+          if (menuRef.current && !menuRef.current.contains(event.target)) setOpen(false);
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+      }, []);
+
+      return (
+        <div className={`flex gap-2 items-center ${isArabic ? "flex-row-reverse" : ""}`} dir="ltr">
+          <button onClick={() => setSoundEnabled(v => !v)} className="icon-btn glass plain-text hover:bg-white/10 text-lg" title={soundEnabled ? "Son activé" : "Son désactivé"}>
+            <span aria-hidden="true">{soundEnabled ? '🔊' : '🔇'}</span>
           </button>
-          <button onClick={handleShare} disabled={sharing}
-            className="qr-share-btn flex-1 py-3 rounded-xl title-soft font-semibold text-sm glass hover:bg-purple-500/20 transition-all disabled:opacity-60 flex items-center justify-center gap-1.5">
-            {sharing ? <span className="animate-spin">⏳</span> : <span>🔗</span>}
-            <span>{t.share}</span>
+          <button onClick={() => setShowHistory(prev => !prev)} className="icon-btn glass plain-text hover:bg-white/10 text-sm" title={t.historyTitle}>🕐</button>
+
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={() => setOpen(v => !v)}
+              className="icon-btn glass plain-text hover:bg-white/10"
+              title={t.languageTitle}
+              style={{ padding: '6px' }}>
+              <CurrentFlag size={20} />
+            </button>
+            {open && (
+              <div className="lang-menu">
+                {LANG_OPTIONS.map((option) => {
+                  const Flag = option.FlagComponent;
+                  return (
+                    <button
+                      key={option.key}
+                      onClick={() => { setLang(option.key); setOpen(false); }}
+                      title={option.label}
+                      className={`lang-option ${lang === option.key ? 'active' : ''} plain-text`}
+                      style={{ justifyContent: 'center', padding: '10px 8px' }}>
+                      <Flag size={20} />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="icon-btn glass plain-text hover:bg-white/10 text-lg" title={t.themeTitle}>
+            <span aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
           </button>
         </div>
-      </div>
+      );
+    }
 
-        {showHistory && history.length > 0 && (
-          <div className="glass glass-card rounded-2xl p-4 flex flex-col gap-3">
-          <div>
-            <p className="title-soft text-xs font-semibold uppercase tracking-widest">{t.history}</p>
-          </div>
-            <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
-              {history.map((h, i) => (
-                <div key={i} className="history-card flex items-center justify-between px-3 py-2 rounded-xl subtle-bg">
-                  <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
-                    <span className="plain-text font-semibold text-sm">{h.name}</span>
-                  </div>
-                  <span className="muted text-xs">{h.time}</span>
-                </div>
-              ))}
+    /* ── App ───────────────────────────────────────────────────────────────────── */
+
+    function App() {
+      const [input, setInput] = useState('');
+      const [names, setNames] = useState([]);
+      const [phase, setPhase] = useState('idle');
+      const [currentName, setCurrentName] = useState('');
+      const [winner, setWinner] = useState('');
+      const [sharing, setSharing] = useState(false);
+      const [history, setHistory] = useState([]);
+      const [showHistory, setShowHistory] = useState(false);
+      const [shake, setShake] = useState(false);
+      const [soundEnabled, setSoundEnabled] = useState(localStorage.getItem('qui-paye-sound') !== 'false');
+      const [lang, setLang] = useState(localStorage.getItem('qui-paye-lang') || 'FR');
+      const [theme, setTheme] = useState(localStorage.getItem('qui-paye-theme') || 'dark');
+      const inputRef = useRef(null);
+      const rollRef = useRef(null);
+      const t = TEXT[lang];
+      const isArabic = lang === 'AR';
+
+      useEffect(() => {
+        localStorage.setItem('qui-paye-sound', soundEnabled);
+        document.body.classList.remove('theme-dark', 'theme-light');
+        document.body.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
+        localStorage.setItem('qui-paye-theme', theme);
+      }, [theme, soundEnabled]);
+
+      useEffect(() => {
+        localStorage.setItem('qui-paye-lang', lang);
+        document.documentElement.lang = lang.toLowerCase();
+        document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+      }, [lang, isArabic]);
+
+      const notifyShake = () => {
+        setShake(true);
+        setTimeout(() => setShake(false), 600);
+      };
+
+      const normalizedNames = useMemo(() => names.map(n => n.toLowerCase()), [names]);
+
+      const addName = useCallback(() => {
+        const trimmed = input.trim();
+        if (!trimmed) return;
+        if (normalizedNames.includes(trimmed.toLowerCase())) { notifyShake(); return; }
+        setNames(prev => [...prev, trimmed]);
+        setInput('');
+        inputRef.current?.focus();
+      }, [input, normalizedNames]);
+
+      const removeName = useCallback((name) => {
+        setNames(prev => prev.filter(n => n !== name));
+        if (winner === name) { setWinner(''); setPhase('idle'); }
+      }, [winner]);
+
+      const handleKey = (e) => { if (e.key === 'Enter') addName(); };
+
+      const draw = useCallback(() => {
+        if (names.length < 2) { notifyShake(); return; }
+        setPhase('rolling');
+        setWinner('');
+        const picked = names[Math.floor(Math.random() * names.length)];
+        if (soundEnabled) { try { playDrumRoll(2800); } catch (e) { } }
+        let elapsed = 0;
+        const totalDuration = 2800;
+        const interval = 80;
+        rollRef.current = setInterval(() => {
+          elapsed += interval;
+          setCurrentName(names[Math.floor(Math.random() * names.length)]);
+          if (elapsed >= totalDuration) {
+            clearInterval(rollRef.current);
+            setCurrentName(picked);
+            setWinner(picked);
+            setPhase('winner');
+            setShowHistory(true);
+            setHistory(prev => [{
+              name: picked,
+              time: new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }),
+              emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)]
+            }, ...prev.slice(0, 9)]);
+            setTimeout(() => launchConfetti(theme), 100);
+            if (soundEnabled) { try { playVictorySound(); } catch (e) { } }
+          }
+        }, interval);
+      }, [names, theme, soundEnabled]);
+
+      useEffect(() => () => clearInterval(rollRef.current), []);
+
+      const handleShare = async () => {
+        setSharing(true);
+        await shareLink(t.shareText, t.shareFallback);
+        setSharing(false);
+      };
+
+      return (
+        <div className="w-full max-w-sm mx-auto p-4 flex flex-col gap-4" style={{ minHeight: '100vh', paddingTop: '2rem', paddingBottom: '2rem' }} dir={isArabic ? 'rtl' : 'ltr'}>
+          <div className="flex items-start justify-between gap-3">
+            <div className="header-title">
+              <h1
+                className={`font-black plain-text tracking-tight ${lang === 'ES' ? 'text-2xl' : 'text-3xl'} whitespace-nowrap`}
+                style={{ lineHeight: 1.1 }}
+              >
+                {t.title}
+              </h1>
+              <p className="muted text-xs mt-0.5">{t.subtitle}</p>
             </div>
+            <div dir="ltr"><HeaderActions
+              showHistory={showHistory}
+              setShowHistory={setShowHistory}
+              t={t}
+              lang={lang}
+              setLang={setLang}
+              theme={theme}
+              setTheme={setTheme}
+              isArabic={isArabic}
+              soundEnabled={soundEnabled}
+              setSoundEnabled={setSoundEnabled}
+            /></div>
+          </div>
+
+          <div className="glass glass-card rounded-2xl p-4 flex flex-col gap-3">
+            <p className="title-soft text-xs font-semibold uppercase tracking-widest">{t.addFriends}</p>
+            <div className={`flex gap-2 ${shake ? 'shake' : ''} ${isArabic ? 'flex-row-reverse' : ''}`}>
+              <input ref={inputRef} value={input} onChange={e => setInput(e.target.value)} onKeyDown={handleKey}
+                placeholder={t.placeholder}
+                className="input-field flex-1 px-4 py-2.5 rounded-xl text-sm font-medium" />
+              <button onClick={addName}
+                className="btn-primary w-11 h-11 rounded-xl flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg"
+                aria-label={t.addFriends}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /><line x1="12" y1="1" x2="12" y2="5" strokeLinecap="round" /><line x1="10" y1="3" x2="14" y2="3" strokeLinecap="round" /></svg>
+              </button>
+            </div>
+            {names.length > 0 && (
+              <div className={`flex flex-wrap gap-2 pt-1 ${isArabic ? 'justify-end' : ''}`}>
+                {names.map(n => <Tag key={n} name={n} onRemove={removeName} />)}
+              </div>
+            )}
+            {names.length < 2 && (
+              <p className="muted text-xs text-center">{t.helper}</p>
+            )}
+          </div>
+
+          <SlotDisplay phase={phase} currentName={currentName} winner={winner} t={t} isArabic={isArabic} />
+
+          <div className="flex flex-col gap-2">
+            <button onClick={draw} disabled={phase === 'rolling'}
+              className="cta-btn btn-primary w-full py-4 rounded-2xl text-white font-black text-lg tracking-wide shadow-xl disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+              {phase === 'rolling' ? (
+                <><span className="animate-spin text-xl">🎲</span><span>{t.drawing}</span></>
+              ) : (
+                <span>{t.cta}</span>
+              )}
+            </button>
+            <div className={`flex gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+              <button onClick={() => window.open('QR_code.pdf', '_blank')}
+                className="qr-share-btn flex-1 py-3 rounded-xl title-soft font-semibold text-sm glass hover:bg-purple-500/20 transition-all flex items-center justify-center gap-1.5">
+                <span>📄</span><span>{t.qrcode}</span>
+              </button>
+              <button onClick={handleShare} disabled={sharing}
+                className="qr-share-btn flex-1 py-3 rounded-xl title-soft font-semibold text-sm glass hover:bg-purple-500/20 transition-all disabled:opacity-60 flex items-center justify-center gap-1.5">
+                {sharing ? <span className="animate-spin">⏳</span> : <span>🔗</span>}
+                <span>{t.share}</span>
+              </button>
+            </div>
+          </div>
+
+          {showHistory && history.length > 0 && (
+            <div className="glass glass-card rounded-2xl p-4 flex flex-col gap-3">
+              <div>
+                <p className="title-soft text-xs font-semibold uppercase tracking-widest">{t.history}</p>
+              </div>
+              <div className="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1">
+                {history.map((h, i) => (
+                  <div key={i} className="history-card flex items-center justify-between px-3 py-2 rounded-xl subtle-bg">
+                    <div className={`flex items-center gap-2 ${isArabic ? 'flex-row-reverse' : ''}`}>
+                      <span className="plain-text font-semibold text-sm">{h.name}</span>
+                    </div>
+                    <span className="muted text-xs">{h.time}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {winner && <span className="sr-only">{t.resultLabel(winner)}</span>}
         </div>
-      )}
+      );
+    }
 
-      {winner && <span className="sr-only">{t.resultLabel(winner)}</span>}
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
 </body>
+
 </html>

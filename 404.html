@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>404 – Page introuvable</title>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+        * {
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0d0d1a;
+            color: #fff;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes fade-up {
+            0% {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .shimmer-text {
+            background: linear-gradient(90deg, #7c3aed, #ec4899, #f97316, #ec4899, #7c3aed);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s linear infinite;
+        }
+
+        .fade-up {
+            animation: fade-up 0.6s ease forwards;
+        }
+
+        .fade-up-2 {
+            animation: fade-up 0.6s 0.15s ease both;
+        }
+
+        .fade-up-3 {
+            animation: fade-up 0.6s 0.3s ease both;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed, #a855f7, #ec4899);
+            background-size: 200% 200%;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.35);
+        }
+
+        .btn-primary:hover {
+            background-position: right center;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(168, 85, 247, 0.55);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="w-full max-w-sm mx-auto p-6 flex flex-col items-center gap-6 text-center">
+
+        <div class="float fade-up" style="font-size: 6rem; line-height:1;">🎲</div>
+
+        <div class="fade-up-2">
+            <h1 class="shimmer-text font-black" style="font-size: 6rem; line-height:1; margin:0;">404</h1>
+            <p class="text-white font-black text-2xl mt-2">Page introuvable</p>
+        </div>
+
+        <div class="glass rounded-2xl px-6 py-4 fade-up-2">
+            <p style="color: rgba(196,181,253,0.8); font-size:0.95rem; line-height:1.6; margin:0;">
+                On a tiré au sort… et cette page n'a pas été choisie. 😅<br />
+                Elle n'existe pas ou a été déplacée.
+            </p>
+        </div>
+
+        <a href="/"
+            class="btn-primary w-full py-4 rounded-2xl text-white font-black text-lg tracking-wide text-center no-underline fade-up-3"
+            style="display:block;">
+            🏠 Retour à l'accueil
+        </a>
+
+    </div>
+</body>
+
+</html>
