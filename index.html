@@ -101,6 +101,10 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
+  <!-- ═══ COOKIECONSENT v3 (orestbida) — open source RGPD ═══ -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" />
+  <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Cairo:wght@400;600;700;900&display=swap');
 
@@ -613,7 +617,154 @@
     .history-card {
       min-height: 48px;
     }
-  </style>
+  
+    /* ═══════════════════════════════════════════════════
+       COOKIECONSENT v3 — UI/UX moderne, style SahelMahel
+       Utilise les CSS vars --pal-* de la palette choisie
+       ═══════════════════════════════════════════════════ */
+
+    /* ── Variables dark (défaut) — basées sur --pal-* ── */
+    #cc-main {
+      --cc-font-family: 'Inter', sans-serif;
+
+      /* Couleurs palette → variables CC */
+      --cc-btn-primary-bg:              var(--pal-primary);
+      --cc-btn-primary-hover-bg:        var(--pal-mid);
+      --cc-btn-primary-color:           #fff;
+      --cc-btn-primary-border-color:    transparent;
+      --cc-primary-color:               var(--pal-mid);
+      --cc-toggle-on-bg:                var(--pal-primary);
+      --cc-toggle-readonly-bg:          rgba(var(--pal-rgb2), 0.35);
+
+      /* Fond dark */
+      --cc-bg:                          rgba(13, 13, 26, 0.92);
+      --cc-secondary-bg:                rgba(255, 255, 255, 0.04);
+      --cc-overlay-bg:                  rgba(0, 0, 0, 0.55);
+
+      /* Texte dark */
+      --cc-text:                        rgba(255, 255, 255, 0.88);
+      --cc-secondary-color:             rgba(255, 255, 255, 0.55);
+
+      /* Bouton secondaire dark */
+      --cc-btn-secondary-bg:            rgba(255, 255, 255, 0.06);
+      --cc-btn-secondary-hover-bg:      rgba(255, 255, 255, 0.11);
+      --cc-btn-secondary-color:         rgba(255, 255, 255, 0.82);
+      --cc-btn-secondary-border-color:  rgba(255, 255, 255, 0.1);
+
+      /* Toggle dark */
+      --cc-toggle-off-bg:               rgba(255, 255, 255, 0.14);
+      --cc-toggle-on-knob-bg:           #fff;
+      --cc-toggle-off-knob-bg:          rgba(255, 255, 255, 0.7);
+
+      /* Blocs catégories dark */
+      --cc-cookie-category-block-bg:           rgba(255, 255, 255, 0.04);
+      --cc-cookie-category-block-border:       rgba(255, 255, 255, 0.07);
+      --cc-cookie-category-block-hover-bg:     rgba(var(--pal-rgb2), 0.1);
+      --cc-cookie-category-block-hover-border: rgba(var(--pal-rgb), 0.3);
+
+      /* Séparateurs dark */
+      --cc-separator-border-color:      rgba(255, 255, 255, 0.07);
+
+      /* Géométrie */
+      --cc-modal-border-radius:         20px;
+      --cc-btn-border-radius:           12px;
+      --cc-modal-transition-duration:   0.28s;
+    }
+
+    /* ── Variables light ── */
+    body.theme-light #cc-main {
+      --cc-bg:                          rgba(250, 248, 255, 0.97);
+      --cc-secondary-bg:                rgba(var(--pal-rgb2), 0.04);
+      --cc-text:                        #1f2340;
+      --cc-secondary-color:             rgba(var(--pal-rgb2), 0.7);
+      --cc-btn-secondary-bg:            rgba(var(--pal-rgb2), 0.07);
+      --cc-btn-secondary-hover-bg:      rgba(var(--pal-rgb2), 0.14);
+      --cc-btn-secondary-color:         var(--pal-primary);
+      --cc-btn-secondary-border-color:  rgba(var(--pal-rgb2), 0.2);
+      --cc-cookie-category-block-bg:    rgba(var(--pal-rgb2), 0.04);
+      --cc-cookie-category-block-border:rgba(var(--pal-rgb2), 0.1);
+      --cc-cookie-category-block-hover-bg:    rgba(var(--pal-rgb2), 0.08);
+      --cc-cookie-category-block-hover-border:rgba(var(--pal-rgb), 0.3);
+      --cc-separator-border-color:      rgba(var(--pal-rgb2), 0.1);
+      --cc-toggle-off-bg:               rgba(var(--pal-rgb2), 0.15);
+    }
+
+    /* ── Modal consentement — glass morphism ── */
+    #cc-main .cm {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(var(--pal-rgb), 0.2);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(var(--pal-rgb), 0.07);
+    }
+    body.theme-light #cc-main .cm {
+      border: 1px solid rgba(var(--pal-rgb2), 0.15);
+      box-shadow: 0 20px 50px rgba(var(--pal-rgb), 0.12);
+    }
+
+    /* ── Titre ── */
+    #cc-main .cm__title { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
+
+    /* ── Description ── */
+    #cc-main .cm__desc { font-size: 12.5px; line-height: 1.65; }
+
+    /* ── Bouton primaire : dégradé palette animé ── */
+    #cc-main .cm__btn[data-role="all"],
+    #cc-main .pm__btn[data-role="all"],
+    #cc-main .pm__btn[data-role="save"] {
+      background: linear-gradient(135deg, var(--pal-primary), var(--pal-mid), var(--pal-accent)) !important;
+      background-size: 200% 200% !important;
+      transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.2s ease !important;
+      box-shadow: 0 8px 24px rgba(var(--pal-rgb), 0.35) !important;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+    }
+    #cc-main .cm__btn[data-role="all"]:hover,
+    #cc-main .pm__btn[data-role="all"]:hover,
+    #cc-main .pm__btn[data-role="save"]:hover {
+      background-position: right center !important;
+      transform: translateY(-1px) !important;
+      box-shadow: 0 12px 28px rgba(var(--pal-rgb), 0.5) !important;
+    }
+
+    /* ── Bouton secondaire ── */
+    #cc-main .cm__btn[data-role="necessary"],
+    #cc-main .pm__btn[data-role="necessary"] {
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      transition: all 0.2s ease !important;
+    }
+
+    /* ── Bouton Personnaliser ── */
+    #cc-main .cm__btn--secondary {
+      font-size: 12px !important; opacity: 0.72;
+      transition: opacity 0.2s ease !important;
+    }
+    #cc-main .cm__btn--secondary:hover { opacity: 1; }
+
+    /* ── Modal préférences — glass morphism ── */
+    #cc-main .pm {
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(var(--pal-rgb), 0.18);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+    }
+    body.theme-light #cc-main .pm {
+      border: 1px solid rgba(var(--pal-rgb2), 0.14);
+      box-shadow: 0 20px 50px rgba(var(--pal-rgb), 0.12);
+    }
+
+    /* ── Titre modal préférences ── */
+    #cc-main .pm__title { font-weight: 800; font-size: 15px; }
+
+    /* ── Blocs catégorie ── */
+    #cc-main .pm__section--toggle {
+      border-radius: 14px !important;
+      transition: background 0.2s ease, border-color 0.2s ease !important;
+    }
+
+    /* ── Toggle switch ── */
+    #cc-main .pm__section-toggle { border-radius: 20px !important; }
+</style>
 </head>
 
 <body class="theme-dark">
@@ -787,6 +938,40 @@
       r.setProperty('--pal-rgb2', palette.vars.rgb2);
       r.setProperty('--pal-rgb3', palette.vars.rgb3);
       localStorage.setItem('qui-paye-palette', palette.key);
+      // ── Sync bannière cookies avec la nouvelle palette ──
+      syncCCPalette(palette.vars);
+    }
+
+    function syncCCPalette(vars) {
+      const cc = document.getElementById('cc-main');
+      if (!cc) return;
+      cc.style.setProperty('--cc-btn-primary-bg',              vars.primary);
+      cc.style.setProperty('--cc-btn-primary-hover-bg',        vars.mid);
+      cc.style.setProperty('--cc-primary-color',               vars.mid);
+      cc.style.setProperty('--cc-toggle-on-bg',                vars.primary);
+      cc.style.setProperty('--cc-toggle-readonly-bg',          hexToRgba(vars.primary, 0.35));
+      cc.style.setProperty('--cc-cookie-category-block-hover-bg',     hexToRgba(vars.primary, 0.1));
+      cc.style.setProperty('--cc-cookie-category-block-hover-border', hexToRgba(vars.mid, 0.3));
+      // light mode overrides (appliqués sur body.theme-light aussi via les vars globales)
+      if (document.body.classList.contains('theme-light')) {
+        cc.style.setProperty('--cc-secondary-bg',              hexToRgba(vars.primary, 0.04));
+        cc.style.setProperty('--cc-secondary-color',           hexToRgba(vars.primary, 0.7));
+        cc.style.setProperty('--cc-btn-secondary-bg',          hexToRgba(vars.primary, 0.07));
+        cc.style.setProperty('--cc-btn-secondary-hover-bg',    hexToRgba(vars.primary, 0.14));
+        cc.style.setProperty('--cc-btn-secondary-color',       vars.primary);
+        cc.style.setProperty('--cc-btn-secondary-border-color',hexToRgba(vars.primary, 0.2));
+        cc.style.setProperty('--cc-cookie-category-block-bg',  hexToRgba(vars.primary, 0.04));
+        cc.style.setProperty('--cc-cookie-category-block-border', hexToRgba(vars.primary, 0.1));
+        cc.style.setProperty('--cc-separator-border-color',    hexToRgba(vars.primary, 0.1));
+        cc.style.setProperty('--cc-toggle-off-bg',             hexToRgba(vars.primary, 0.15));
+      }
+    }
+
+    function hexToRgba(hex, alpha) {
+      const r = parseInt(hex.slice(1,3), 16);
+      const g = parseInt(hex.slice(3,5), 16);
+      const b = parseInt(hex.slice(5,7), 16);
+      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
     }
 
     /* ── Translations ──────────────────────────────────────────────────────────── */
@@ -1546,7 +1731,7 @@
               ))}
               <span style={{ fontSize: '11px', color: theme === 'dark' ? 'rgba(196,181,253,0.4)' : 'rgba(91,58,170,0.4)' }}>·</span>
               <button
-                onClick={() => window.openAxeptioCookies && window.openAxeptioCookies()}
+                onClick={() => window.CookieConsent && window.CookieConsent.showPreferences()}
                 style={{ fontSize: '11px', color: theme === 'dark' ? 'rgba(196,181,253,0.8)' : 'rgba(91,58,170,0.85)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
                 onMouseEnter={e => e.target.style.textDecoration = 'underline'}
                 onMouseLeave={e => e.target.style.textDecoration = 'none'}>
@@ -1567,66 +1752,278 @@
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 
-  <!-- ═══ AXEPTIO — configuration ═══ -->
-  <script>
-    window.axeptioSettings = {
-      clientId: "6a2143507302269a0de7bbfe",
-      cookiesVersion: "ccd772a2-6190-4517-98a6-5df03e8bd3ff",
-      showIcon: false,
-      googleConsentMode: {
-        default: {
-          analytics_storage: "denied",
-          ad_storage: "denied",
-          ad_user_data: "denied",
-          ad_personalization: "denied",
-          wait_for_update: 500
-        }
-      }
-    };
-    (function (d, s) {
-      var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
-      e.async = true; e.src = "//static.axept.io/sdk.js";
-      t.parentNode.insertBefore(e, t);
-    })(document, "script");
-  </script>
 
-  <!-- ═══ AXEPTIO — logique masquage GA4 ═══ -->
+  <!-- ═══ COOKIECONSENT v3 — initialisation ═══ -->
   <script>
-    window._axcb = window._axcb || [];
-    window._axcb.push(function (sdk) {
-      function hideAxeptioWidget() {
-        var selectors = ["#axeptio_overlay", "#axeptio_widget", ".axeptio_widget", "[id*='axeptio']", "[class*='axeptio']"];
-        selectors.forEach(function (sel) {
-          document.querySelectorAll(sel).forEach(function (el) {
-            el.style.setProperty("display", "none", "important");
-          });
-        });
-        localStorage.setItem("axeptio-choice-made", "1");
+    document.addEventListener("DOMContentLoaded", function () {
+
+      // Détecte la langue actuelle de l'app (stockée par React)
+      function getCCLang() {
+        var saved = localStorage.getItem('qui-paye-lang') || 'FR';
+        var map = { FR: 'fr', AR: 'ar', EN: 'en', IT: 'it', ES: 'es', TZM: 'fr' };
+        return map[saved] || 'fr';
       }
-      window.openAxeptioCookies = function () {
-        var selectors = ["#axeptio_overlay", "#axeptio_widget", ".axeptio_widget", "[id*='axeptio']", "[class*='axeptio']"];
-        selectors.forEach(function (sel) {
-          document.querySelectorAll(sel).forEach(function (el) {
-            el.style.removeProperty("display");
-          });
-        });
-        sdk.openCookies();
-      };
-      sdk.on("cookies:complete", function (choices) {
-        gtag("consent", "update", {
-          analytics_storage: choices.google_analytics ? "granted" : "denied",
-          ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied"
-        });
-        setTimeout(hideAxeptioWidget, 800);
+
+      // ── Applique la palette sauvegardée à la bannière au chargement ──
+      (function() {
+        var savedKey = localStorage.getItem('qui-paye-palette') || 'violet';
+        var palMap = {
+          violet:   { primary: '#7c3aed', mid: '#a855f7', accent: '#ec4899', extra: '#f97316', rgb: '168,85,247', rgb2: '124,58,237', rgb3: '236,72,153' },
+          ocean:    { primary: '#0369a1', mid: '#0ea5e9', accent: '#06b6d4', extra: '#38bdf8', rgb: '14,165,233',  rgb2: '3,105,161',  rgb3: '6,182,212'  },
+          emeraude: { primary: '#047857', mid: '#10b981', accent: '#34d399', extra: '#a7f3d0', rgb: '16,185,129', rgb2: '4,120,87',   rgb3: '52,211,153' },
+          sunset:   { primary: '#b91c1c', mid: '#ef4444', accent: '#f97316', extra: '#fbbf24', rgb: '239,68,68',  rgb2: '185,28,28',  rgb3: '249,115,22' },
+          gold:     { primary: '#92400e', mid: '#d97706', accent: '#f59e0b', extra: '#fcd34d', rgb: '217,119,6',  rgb2: '146,64,14',  rgb3: '245,158,11' },
+          rose:     { primary: '#9f1239', mid: '#e11d48', accent: '#f43f5e', extra: '#fb7185', rgb: '244,63,94',  rgb2: '159,18,57',  rgb3: '251,113,133'},
+          indigo:   { primary: '#4338ca', mid: '#6366f1', accent: '#818cf8', extra: '#a78bfa', rgb: '99,102,241', rgb2: '67,56,202',  rgb3: '129,140,248'}
+        };
+        var vars = palMap[savedKey] || palMap.violet;
+        // Applique sur :root pour que les var(--pal-*) dans #cc-main fonctionnent immédiatement
+        var r = document.documentElement.style;
+        r.setProperty('--pal-primary', vars.primary);
+        r.setProperty('--pal-mid',     vars.mid);
+        r.setProperty('--pal-accent',  vars.accent);
+        r.setProperty('--pal-extra',   vars.extra);
+        r.setProperty('--pal-rgb',     vars.rgb);
+        r.setProperty('--pal-rgb2',    vars.rgb2);
+        r.setProperty('--pal-rgb3',    vars.rgb3);
+      })();
+
+      CookieConsent.run({
+
+        // ── Pas de re-demande si déjà consenti ──────────────────
+        // CookieConsent v3 gère ça nativement :
+        // si un cookie "cc_cookie" existe, le modal NE s'affiche PLUS.
+        // Le bouton "Cookies" du footer appelle showPreferences() pour modifier.
+
+        revision: 1, // Incrémenter si tu changes la politique pour forcer un re-consentement
+
+        guiOptions: {
+          consentModal: {
+            layout: 'box',
+            position: 'bottom left',
+            equalWeightButtons: false,
+            flipButtons: false,
+            disablePageInteraction: false
+          },
+          preferencesModal: {
+            layout: 'box',
+            equalWeightButtons: false,
+            flipButtons: false
+          }
+        },
+
+        onFirstConsent: function () {
+          updateGAConsent(CookieConsent.acceptedCategory('analytics'));
+        },
+        onConsent: function () {
+          updateGAConsent(CookieConsent.acceptedCategory('analytics'));
+        },
+        onChange: function () {
+          updateGAConsent(CookieConsent.acceptedCategory('analytics'));
+        },
+
+        categories: {
+          necessary: {
+            enabled: true,
+            readOnly: true
+          },
+          analytics: {
+            enabled: false,
+            autoClear: {
+              cookies: [
+                { name: /^_ga/ },
+                { name: '_gid' }
+              ]
+            }
+          }
+        },
+
+        language: {
+          default: getCCLang(),
+          autoDetect: 'document',
+          translations: {
+            fr: {
+              consentModal: {
+                title: '🍪 Cookies',
+                description: 'Nous utilisons <strong>Google Analytics</strong> (anonymisé) pour mesurer l\'audience. Vous pouvez refuser sans aucun impact sur votre expérience.',
+                acceptAllBtn: 'Tout accepter',
+                acceptNecessaryBtn: 'Refuser',
+                showPreferencesBtn: 'Personnaliser ›',
+              },
+              preferencesModal: {
+                title: '⚙️ Préférences cookies',
+                acceptAllBtn: 'Tout accepter',
+                acceptNecessaryBtn: 'Tout refuser',
+                savePreferencesBtn: '✓ Enregistrer mes choix',
+                closeIconLabel: 'Fermer',
+                sections: [
+                  {
+                    title: 'Comment on utilise les cookies',
+                    description: 'Les cookies nécessaires sont indispensables au bon fonctionnement. Les cookies analytiques nous aident à améliorer l\'application. Vous pouvez modifier vos choix à tout moment via le bouton <strong>Cookies</strong> en bas de page.'
+                  },
+                  {
+                    title: '🔒 Cookies nécessaires',
+                    description: 'Stockent vos préférences locales : langue, thème, palette de couleurs, historique des tirages. Aucune donnée envoyée à des tiers.',
+                    linkedCategory: 'necessary'
+                  },
+                  {
+                    title: '📊 Google Analytics (anonymisé)',
+                    description: 'Mesure l\'audience de manière anonyme : pages visitées, pays, type d\'appareil. <strong>Aucune donnée personnelle</strong> collectée. Durée de conservation : 13 mois. Conforme CNIL.',
+                    linkedCategory: 'analytics'
+                  }
+                ]
+              }
+            },
+            en: {
+              consentModal: {
+                title: '🍪 Cookies',
+                description: 'We use <strong>Google Analytics</strong> (anonymized) to measure traffic. You can decline without any impact on your experience.',
+                acceptAllBtn: 'Accept all',
+                acceptNecessaryBtn: 'Decline',
+                showPreferencesBtn: 'Customize ›'
+              },
+              preferencesModal: {
+                title: '⚙️ Cookie preferences',
+                acceptAllBtn: 'Accept all',
+                acceptNecessaryBtn: 'Reject all',
+                savePreferencesBtn: '✓ Save my choices',
+                closeIconLabel: 'Close',
+                sections: [
+                  {
+                    title: 'How we use cookies',
+                    description: 'Necessary cookies are required for the app to function. Analytics cookies help us improve the app. You can change your choices at any time via the <strong>Cookies</strong> button at the bottom of the page.'
+                  },
+                  {
+                    title: '🔒 Necessary cookies',
+                    description: 'Store your local preferences: language, theme, color palette, draw history. No data sent to third parties.',
+                    linkedCategory: 'necessary'
+                  },
+                  {
+                    title: '📊 Google Analytics (anonymized)',
+                    description: 'Anonymously measures audience: visited pages, country, device type. <strong>No personal data</strong> collected. Stored for 13 months.',
+                    linkedCategory: 'analytics'
+                  }
+                ]
+              }
+            },
+            ar: {
+              consentModal: {
+                title: '🍪 ملفات تعريف الارتباط',
+                description: 'نستخدم <strong>Google Analytics</strong> بشكل مجهول لقياس الزيارات. يمكنك الرفض دون أي تأثير على تجربتك.',
+                acceptAllBtn: 'قبول الكل',
+                acceptNecessaryBtn: 'رفض',
+                showPreferencesBtn: 'تخصيص ›'
+              },
+              preferencesModal: {
+                title: '⚙️ تفضيلات ملفات تعريف الارتباط',
+                acceptAllBtn: 'قبول الكل',
+                acceptNecessaryBtn: 'رفض الكل',
+                savePreferencesBtn: '✓ حفظ اختياراتي',
+                closeIconLabel: 'إغلاق',
+                sections: [
+                  {
+                    title: 'كيف نستخدم ملفات تعريف الارتباط',
+                    description: 'ملفات الارتباط الضرورية مطلوبة لتشغيل التطبيق. يمكنك تغيير اختياراتك في أي وقت عبر زر <strong>الكوكيز</strong> في أسفل الصفحة.'
+                  },
+                  {
+                    title: '🔒 ملفات الارتباط الضرورية',
+                    description: 'تخزن تفضيلاتك المحلية: اللغة، الثيم، لوحة الألوان، سجل السحوبات. لا يتم إرسال أي بيانات لجهات خارجية.',
+                    linkedCategory: 'necessary'
+                  },
+                  {
+                    title: '📊 Google Analytics (مجهول)',
+                    description: 'يقيس عدد الزوار بشكل مجهول: الصفحات، الدولة، نوع الجهاز. <strong>لا توجد بيانات شخصية</strong>. مدة الاحتفاظ: 13 شهرًا.',
+                    linkedCategory: 'analytics'
+                  }
+                ]
+              }
+            },
+            es: {
+              consentModal: {
+                title: '🍪 Cookies',
+                description: 'Usamos <strong>Google Analytics</strong> anonimizado para medir el tráfico. Puedes rechazarlo sin afectar tu experiencia.',
+                acceptAllBtn: 'Aceptar todo',
+                acceptNecessaryBtn: 'Rechazar',
+                showPreferencesBtn: 'Personalizar ›'
+              },
+              preferencesModal: {
+                title: '⚙️ Preferencias de cookies',
+                acceptAllBtn: 'Aceptar todo',
+                acceptNecessaryBtn: 'Rechazar todo',
+                savePreferencesBtn: '✓ Guardar mis preferencias',
+                closeIconLabel: 'Cerrar',
+                sections: [
+                  {
+                    title: 'Cómo usamos las cookies',
+                    description: 'Puedes cambiar tus preferencias en cualquier momento con el botón <strong>Cookies</strong> en la parte inferior.'
+                  },
+                  {
+                    title: '🔒 Cookies necesarias',
+                    description: 'Guardan tus preferencias: idioma, tema, paleta, historial. Sin envío a terceros.',
+                    linkedCategory: 'necessary'
+                  },
+                  {
+                    title: '📊 Google Analytics (anónimo)',
+                    description: 'Mide la audiencia de forma anónima. <strong>Sin datos personales</strong>. Conservación: 13 meses.',
+                    linkedCategory: 'analytics'
+                  }
+                ]
+              }
+            },
+            it: {
+              consentModal: {
+                title: '🍪 Cookie',
+                description: 'Usiamo <strong>Google Analytics</strong> anonimizzato per misurare il traffico. Puoi rifiutare senza impatti sull\'esperienza.',
+                acceptAllBtn: 'Accetta tutto',
+                acceptNecessaryBtn: 'Rifiuta',
+                showPreferencesBtn: 'Personalizza ›'
+              },
+              preferencesModal: {
+                title: '⚙️ Preferenze cookie',
+                acceptAllBtn: 'Accetta tutto',
+                acceptNecessaryBtn: 'Rifiuta tutto',
+                savePreferencesBtn: '✓ Salva le mie preferenze',
+                closeIconLabel: 'Chiudi',
+                sections: [
+                  {
+                    title: 'Come usiamo i cookie',
+                    description: 'Puoi modificare le tue preferenze in qualsiasi momento tramite il pulsante <strong>Cookies</strong> in fondo alla pagina.'
+                  },
+                  {
+                    title: '🔒 Cookie necessari',
+                    description: 'Salvano le preferenze locali: lingua, tema, palette, cronologia. Nessun dato inviato a terzi.',
+                    linkedCategory: 'necessary'
+                  },
+                  {
+                    title: '📊 Google Analytics (anonimo)',
+                    description: 'Misura il pubblico in modo anonimo. <strong>Nessun dato personale</strong>. Conservazione: 13 mesi.',
+                    linkedCategory: 'analytics'
+                  }
+                ]
+              }
+            }
+          }
+        }
       });
-      if (localStorage.getItem("axeptio-choice-made") === "1") {
-        var observer = new MutationObserver(function () {
-          var found = document.querySelector("[id*='axeptio'], [class*='axeptio']");
-          if (found) { hideAxeptioWidget(); observer.disconnect(); }
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
-      }
+
+      // Synchronise la langue du banner quand l'utilisateur change de langue dans l'app
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'qui-paye-lang') {
+          var map = { FR: 'fr', AR: 'ar', EN: 'en', IT: 'it', ES: 'es', TZM: 'fr' };
+          var newLang = map[e.newValue] || 'fr';
+          CookieConsent.setLanguage(newLang);
+        }
+      });
     });
+
+    function updateGAConsent(analyticsAccepted) {
+      gtag('consent', 'update', {
+        analytics_storage: analyticsAccepted ? 'granted' : 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied'
+      });
+    }
   </script>
 
 </body>
