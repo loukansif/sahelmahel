@@ -1535,6 +1535,8 @@
         localStorage.setItem('qui-paye-lang', lang);
         document.documentElement.lang = lang.toLowerCase();
         document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+        // ── Sync bannière cookies avec la langue de l'app ──
+        if (window.updateCCLang) window.updateCCLang(lang);
       }, [lang, isArabic]);
 
       const notifyShake = () => {
@@ -1840,7 +1842,6 @@
 
         language: {
           default: getCCLang(),
-          autoDetect: 'document',
           translations: {
             fr: {
               consentModal: {
@@ -2006,14 +2007,12 @@
         }
       });
 
-      // Synchronise la langue du banner quand l'utilisateur change de langue dans l'app
-      window.addEventListener('storage', function(e) {
-        if (e.key === 'qui-paye-lang') {
-          var map = { FR: 'fr', AR: 'ar', EN: 'en', IT: 'it', ES: 'es', TZM: 'fr' };
-          var newLang = map[e.newValue] || 'fr';
-          CookieConsent.setLanguage(newLang);
-        }
-      });
+      // Expose updateCCLang pour que React puisse changer la langue en direct
+      var CC_LANG_MAP = { FR: 'fr', AR: 'ar', EN: 'en', IT: 'it', ES: 'es', TZM: 'fr' };
+      window.updateCCLang = function(appLang) {
+        var lang = CC_LANG_MAP[appLang] || 'fr';
+        CookieConsent.setLanguage(lang);
+      };
     });
 
     function updateGAConsent(analyticsAccepted) {
