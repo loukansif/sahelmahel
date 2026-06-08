@@ -101,7 +101,6 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-  <!-- ═══ COOKIECONSENT v3 (orestbida) — open source RGPD ═══ -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css" />
   <script defer src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
 
@@ -301,7 +300,6 @@
       box-shadow: 0 20px 45px rgba(116, 85, 255, 0.12);
     }
 
-    /* ═══ PALETTE SYSTEM ═══ */
     :root {
       --pal-primary: #7c3aed;
       --pal-mid: #a855f7;
@@ -473,7 +471,6 @@
       transform: translateY(-1px);
     }
 
-    /* Lang menu */
     .lang-menu {
       position: absolute;
       top: calc(100% + 8px);
@@ -520,7 +517,6 @@
       background: linear-gradient(135deg, rgba(var(--pal-rgb2), 0.18), rgba(var(--pal-rgb3), 0.16));
     }
 
-    /* Palette menu */
     .palette-menu {
       position: absolute;
       top: calc(100% + 8px);
@@ -618,16 +614,9 @@
       min-height: 48px;
     }
   
-    /* ═══════════════════════════════════════════════════
-       COOKIECONSENT v3 — UI/UX moderne, style SahelMahel
-       Utilise les CSS vars --pal-* de la palette choisie
-       ═══════════════════════════════════════════════════ */
-
-    /* ── Variables dark (défaut) — basées sur --pal-* ── */
     #cc-main {
       --cc-font-family: 'Inter', sans-serif;
 
-      /* Couleurs palette → variables CC */
       --cc-btn-primary-bg:              var(--pal-primary);
       --cc-btn-primary-hover-bg:        var(--pal-mid);
       --cc-btn-primary-color:           #fff;
@@ -636,42 +625,34 @@
       --cc-toggle-on-bg:                var(--pal-primary);
       --cc-toggle-readonly-bg:          rgba(var(--pal-rgb2), 0.35);
 
-      /* Fond dark */
       --cc-bg:                          rgba(13, 13, 26, 0.92);
       --cc-secondary-bg:                rgba(255, 255, 255, 0.04);
       --cc-overlay-bg:                  rgba(0, 0, 0, 0.55);
 
-      /* Texte dark */
       --cc-text:                        rgba(255, 255, 255, 0.88);
       --cc-secondary-color:             rgba(255, 255, 255, 0.55);
 
-      /* Bouton secondaire dark */
       --cc-btn-secondary-bg:            rgba(255, 255, 255, 0.06);
       --cc-btn-secondary-hover-bg:      rgba(255, 255, 255, 0.11);
       --cc-btn-secondary-color:         rgba(255, 255, 255, 0.82);
       --cc-btn-secondary-border-color:  rgba(255, 255, 255, 0.1);
 
-      /* Toggle dark */
       --cc-toggle-off-bg:               rgba(255, 255, 255, 0.14);
       --cc-toggle-on-knob-bg:           #fff;
       --cc-toggle-off-knob-bg:          rgba(255, 255, 255, 0.7);
 
-      /* Blocs catégories dark */
       --cc-cookie-category-block-bg:           rgba(255, 255, 255, 0.04);
       --cc-cookie-category-block-border:       rgba(255, 255, 255, 0.07);
       --cc-cookie-category-block-hover-bg:     rgba(var(--pal-rgb2), 0.1);
       --cc-cookie-category-block-hover-border: rgba(var(--pal-rgb), 0.3);
 
-      /* Séparateurs dark */
       --cc-separator-border-color:      rgba(255, 255, 255, 0.07);
 
-      /* Géométrie */
       --cc-modal-border-radius:         20px;
       --cc-btn-border-radius:           12px;
       --cc-modal-transition-duration:   0.28s;
     }
 
-    /* ── Variables light ── */
     body.theme-light #cc-main {
       --cc-bg:                          rgba(250, 248, 255, 0.97);
       --cc-secondary-bg:                rgba(var(--pal-rgb2), 0.04);
@@ -689,7 +670,6 @@
       --cc-toggle-off-bg:               rgba(var(--pal-rgb2), 0.15);
     }
 
-    /* ── Modal consentement — glass morphism ── */
     #cc-main .cm {
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -701,13 +681,10 @@
       box-shadow: 0 20px 50px rgba(var(--pal-rgb), 0.12);
     }
 
-    /* ── Titre ── */
     #cc-main .cm__title { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; }
 
-    /* ── Description ── */
     #cc-main .cm__desc { font-size: 12.5px; line-height: 1.65; }
 
-    /* ── Bouton primaire : dégradé palette animé ── */
     #cc-main .cm__btn[data-role="all"],
     #cc-main .pm__btn[data-role="all"],
     #cc-main .pm__btn[data-role="save"] {
@@ -726,7 +703,6 @@
       box-shadow: 0 12px 28px rgba(var(--pal-rgb), 0.5) !important;
     }
 
-    /* ── Bouton secondaire ── */
     #cc-main .cm__btn[data-role="necessary"],
     #cc-main .pm__btn[data-role="necessary"] {
       font-weight: 600 !important;
@@ -734,14 +710,12 @@
       transition: all 0.2s ease !important;
     }
 
-    /* ── Bouton Personnaliser ── */
     #cc-main .cm__btn--secondary {
       font-size: 12px !important; opacity: 0.72;
       transition: opacity 0.2s ease !important;
     }
     #cc-main .cm__btn--secondary:hover { opacity: 1; }
 
-    /* ── Modal préférences — glass morphism ── */
     #cc-main .pm {
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -753,16 +727,13 @@
       box-shadow: 0 20px 50px rgba(var(--pal-rgb), 0.12);
     }
 
-    /* ── Titre modal préférences ── */
     #cc-main .pm__title { font-weight: 800; font-size: 15px; }
 
-    /* ── Blocs catégorie ── */
     #cc-main .pm__section--toggle {
       border-radius: 14px !important;
       transition: background 0.2s ease, border-color 0.2s ease !important;
     }
 
-    /* ── Toggle switch ── */
     #cc-main .pm__section-toggle { border-radius: 20px !important; }
 </style>
 </head>
@@ -775,8 +746,6 @@
 
     const EMOJIS = ["🎉", "🎊", "🍕", "🎲", "💸", "🃏", "🎰", "🍾", "🔥", "⚡", "💫", "🌟", "🎯", "🎸"];
     const AVATARS = ["🐱", "🐶", "🦊", "🐻", "🐼", "🦁", "🐯", "🦄", "🐸", "🐺", "🦋", "🦉"];
-
-    /* ── SVG Flags ─────────────────────────────────────────────────────────────── */
 
     function FlagFR({ size = 20 }) {
       return (
@@ -877,8 +846,6 @@
       );
     }
 
-    /* ── Lang options ──────────────────────────────────────────────────────────── */
-
     const LANG_OPTIONS = [
       { key: 'FR', FlagComponent: FlagFR, label: 'Français' },
       { key: 'AR', FlagComponent: FlagDZ, label: 'العربية' },
@@ -887,8 +854,6 @@
       { key: 'IT', FlagComponent: FlagIT, label: 'Italiano' },
       { key: 'ES', FlagComponent: FlagES, label: 'Español' },
     ];
-
-    /* ── Palettes ──────────────────────────────────────────────────────────────── */
 
     const PALETTES = [
       {
@@ -938,7 +903,6 @@
       r.setProperty('--pal-rgb2', palette.vars.rgb2);
       r.setProperty('--pal-rgb3', palette.vars.rgb3);
       localStorage.setItem('qui-paye-palette', palette.key);
-      // ── Sync bannière cookies avec la nouvelle palette ──
       syncCCPalette(palette.vars);
     }
 
@@ -952,7 +916,6 @@
       cc.style.setProperty('--cc-toggle-readonly-bg',          hexToRgba(vars.primary, 0.35));
       cc.style.setProperty('--cc-cookie-category-block-hover-bg',     hexToRgba(vars.primary, 0.1));
       cc.style.setProperty('--cc-cookie-category-block-hover-border', hexToRgba(vars.mid, 0.3));
-      // light mode overrides (appliqués sur body.theme-light aussi via les vars globales)
       if (document.body.classList.contains('theme-light')) {
         cc.style.setProperty('--cc-secondary-bg',              hexToRgba(vars.primary, 0.04));
         cc.style.setProperty('--cc-secondary-color',           hexToRgba(vars.primary, 0.7));
@@ -973,8 +936,6 @@
       const b = parseInt(hex.slice(5,7), 16);
       return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
     }
-
-    /* ── Translations ──────────────────────────────────────────────────────────── */
 
     const TEXT = {
       FR: {
@@ -1171,8 +1132,6 @@
       }
     };
 
-    /* ── Audio ─────────────────────────────────────────────────────────────────── */
-
     function createAudioContext() {
       return new (window.AudioContext || window.webkitAudioContext)();
     }
@@ -1286,8 +1245,6 @@
       }
     }
 
-    /* ── Helpers ───────────────────────────────────────────────────────────────── */
-
     function getAvatar(name) {
       let hash = 0;
       for (let c of name) hash = (hash * 31 + c.charCodeAt(0)) % AVATARS.length;
@@ -1302,8 +1259,6 @@
       setTimeout(() => confetti({ ...opts, angle: 120, origin: { x: 1, y: 0.7 } }), 200);
       setTimeout(() => confetti({ ...opts, particleCount: 60, origin: { x: 0.5, y: 0.5 } }), 400);
     }
-
-    /* ── Components ────────────────────────────────────────────────────────────── */
 
     function Tag({ name, onRemove }) {
       return (
@@ -1338,8 +1293,6 @@
       );
     }
 
-    /* ── HeaderActions (MODIFIÉ) ───────────────────────────────────────────────── */
-
     function HeaderActions({ t, lang, setLang, theme, setTheme, isArabic, soundEnabled, setSoundEnabled, palette, setPalette }) {
       const [openLang, setOpenLang] = useState(false);
       const [openPalette, setOpenPalette] = useState(false);
@@ -1361,7 +1314,6 @@
       return (
         <div className={`flex gap-2 items-center ${isArabic ? "flex-row-reverse" : ""}`} dir="ltr">
 
-          {/* Son */}
           <button
             onClick={() => setSoundEnabled(v => !v)}
             className="icon-btn glass plain-text hover:bg-white/10 text-lg"
@@ -1369,7 +1321,6 @@
             <span aria-hidden="true">{soundEnabled ? '🔊' : '🔇'}</span>
           </button>
 
-          {/* Palette de couleurs */}
           <div className="relative" ref={paletteRef}>
             <button
               onClick={() => setOpenPalette(v => !v)}
@@ -1397,7 +1348,6 @@
             )}
           </div>
 
-          {/* Thème clair / sombre */}
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="icon-btn glass plain-text hover:bg-white/10 text-lg"
@@ -1405,7 +1355,6 @@
             <span aria-hidden="true">{theme === 'dark' ? '☀️' : '🌙'}</span>
           </button>
 
-          {/* Langue */}
           <div className="relative" ref={langRef}>
             <button
               onClick={() => setOpenLang(v => !v)}
@@ -1436,8 +1385,6 @@
         </div>
       );
     }
-
-    /* ── LegalModal ────────────────────────────────────────────────────────────── */
 
     function LegalModal({ type, onClose, theme, lang }) {
       const year = new Date().getFullYear();
@@ -1690,7 +1637,6 @@
         }
       };
 
-      // TZM uses FR content (no legal text in Tifinagh)
       CONTENTS.TZM = CONTENTS.FR;
 
       const langContents = CONTENTS[lang] || CONTENTS['FR'];
@@ -1740,8 +1686,6 @@
       );
     }
 
-    /* ── App ───────────────────────────────────────────────────────────────────── */
-
     function App() {
       const [input, setInput] = useState('');
       const [names, setNames] = useState([]);
@@ -1779,7 +1723,6 @@
         localStorage.setItem('qui-paye-lang', lang);
         document.documentElement.lang = lang.toLowerCase();
         document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
-        // ── Sync bannière cookies avec la langue de l'app ──
         if (window.updateCCLang) window.updateCCLang(lang);
       }, [lang, isArabic]);
 
@@ -1846,7 +1789,6 @@
       return (
         <div className="w-full max-w-sm mx-auto p-4 flex flex-col gap-4" style={{ minHeight: '100vh', paddingTop: '2rem', paddingBottom: '80px' }} dir={isArabic ? 'rtl' : 'ltr'}>
 
-          {/* Header */}
           <div className="flex items-start justify-between gap-3">
             <div className="header-title">
               <h1
@@ -1872,7 +1814,6 @@
             </div>
           </div>
 
-          {/* Input */}
           <div className="glass glass-card rounded-2xl p-4 flex flex-col gap-3">
             <p className="title-soft text-xs font-semibold uppercase tracking-widest">{t.addFriends}</p>
             <div className={`flex gap-2 ${shake ? 'shake' : ''}`} dir="ltr">
@@ -1907,10 +1848,8 @@
             )}
           </div>
 
-          {/* Slot */}
           <SlotDisplay phase={phase} currentName={currentName} winner={winner} t={t} isArabic={isArabic} />
 
-          {/* CTA */}
           <div className="flex flex-col gap-2">
             <button
               onClick={draw}
@@ -1937,7 +1876,6 @@
             </div>
           </div>
 
-          {/* Historique */}
           {showHistory && history.length > 0 && (
             <div className="glass glass-card rounded-2xl p-4 flex flex-col gap-3">
               <div>
@@ -1958,7 +1896,6 @@
 
           {winner && <span className="sr-only">{t.resultLabel(winner)}</span>}
 
-          {/* Footer légal */}
           <div style={{
             position: 'fixed', bottom: 0, left: 0, right: 0,
             zIndex: 998, padding: '8px 12px 10px', textAlign: 'center',
@@ -1989,7 +1926,6 @@
             </p>
           </div>
 
-          {/* Modal légal */}
           {modal && <LegalModal type={modal} onClose={() => setModal(null)} theme={theme} lang={lang} />}
         </div>
       );
@@ -1999,18 +1935,15 @@
   </script>
 
 
-  <!-- ═══ COOKIECONSENT v3 — initialisation ═══ -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
 
-      // Détecte la langue actuelle de l'app (stockée par React)
       function getCCLang() {
         var saved = localStorage.getItem('qui-paye-lang') || 'FR';
         var map = { FR: 'fr', AR: 'ar', EN: 'en', IT: 'it', ES: 'es', TZM: 'fr' };
         return map[saved] || 'fr';
       }
 
-      // ── Applique la palette sauvegardée à la bannière au chargement ──
       (function() {
         var savedKey = localStorage.getItem('qui-paye-palette') || 'violet';
         var palMap = {
@@ -2023,7 +1956,6 @@
           indigo:   { primary: '#4338ca', mid: '#6366f1', accent: '#818cf8', extra: '#a78bfa', rgb: '99,102,241', rgb2: '67,56,202',  rgb3: '129,140,248'}
         };
         var vars = palMap[savedKey] || palMap.violet;
-        // Applique sur :root pour que les var(--pal-*) dans #cc-main fonctionnent immédiatement
         var r = document.documentElement.style;
         r.setProperty('--pal-primary', vars.primary);
         r.setProperty('--pal-mid',     vars.mid);
@@ -2036,12 +1968,7 @@
 
       CookieConsent.run({
 
-        // ── Pas de re-demande si déjà consenti ──────────────────
-        // CookieConsent v3 gère ça nativement :
-        // si un cookie "cc_cookie" existe, le modal NE s'affiche PLUS.
-        // Le bouton "Cookies" du footer appelle showPreferences() pour modifier.
-
-        revision: 1, // Incrémenter si tu changes la politique pour forcer un re-consentement
+        revision: 1,
 
         guiOptions: {
           consentModal: {
@@ -2251,7 +2178,6 @@
         }
       });
 
-      // Expose updateCCLang pour que React puisse changer la langue en direct
       var CC_LANG_MAP = { FR: 'fr', AR: 'ar', EN: 'en', IT: 'it', ES: 'es', TZM: 'fr' };
       window.updateCCLang = function(appLang) {
         var lang = CC_LANG_MAP[appLang] || 'fr';
