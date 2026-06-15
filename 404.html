@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>404 – Page introuvable</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DLZ01F2QHL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-DLZ01F2QHL');
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
@@ -26,37 +35,18 @@
         }
 
         @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-10px); }
         }
 
         @keyframes shimmer {
-            0% {
-                background-position: -200% center;
-            }
-
-            100% {
-                background-position: 200% center;
-            }
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
         }
 
         @keyframes fade-up {
-            0% {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0%   { opacity: 0; transform: translateY(24px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         .float {
@@ -71,17 +61,9 @@
             animation: shimmer 2s linear infinite;
         }
 
-        .fade-up {
-            animation: fade-up 0.6s ease forwards;
-        }
-
-        .fade-up-2 {
-            animation: fade-up 0.6s 0.15s ease both;
-        }
-
-        .fade-up-3 {
-            animation: fade-up 0.6s 0.3s ease both;
-        }
+        .fade-up   { animation: fade-up 0.6s ease forwards; }
+        .fade-up-2 { animation: fade-up 0.6s 0.15s ease both; }
+        .fade-up-3 { animation: fade-up 0.6s 0.3s  ease both; }
 
         .glass {
             background: rgba(255, 255, 255, 0.05);
@@ -110,6 +92,12 @@
 </head>
 
 <body>
+
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=G-DLZ01F2QHL"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
     <div class="w-full max-w-sm mx-auto p-6 flex flex-col items-center gap-6 text-center">
 
         <div class="float fade-up" style="font-size: 6rem; line-height:1;">🎲</div>
@@ -122,7 +110,7 @@
         <div class="glass rounded-2xl px-6 py-4 fade-up-2">
             <p style="color: rgba(196,181,253,0.8); font-size:0.95rem; line-height:1.6; margin:0;">
                 On a tiré au sort… et cette page n'a pas été choisie. 😅<br />
-                Elle n'existe pas ou a été déplacée.
+                Elle n'existe pas.
             </p>
         </div>
 
