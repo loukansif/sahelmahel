@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\i.belfekih\\\\Documents\\\\SAHELMAHEL_NEXT\" -Depth 0 -Force | Where-Object { $_.Name -ne 'node_modules' -and $_.Name -ne '.next' } | Select-Object Name, FullName)",
+      "Bash(npx next *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}
